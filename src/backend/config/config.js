@@ -9,7 +9,7 @@ var config = {
       name: 'backend'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/backend-development'
+    db:  'mongodb://localhost/backend-development'
   },
 
   test: {
@@ -18,7 +18,7 @@ var config = {
       name: 'backend'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/backend-test'
+    db:  'mongodb://localhost/backend-test'
   },
 
   production: {
@@ -27,7 +27,7 @@ var config = {
       name: 'backend'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/backend-production'
+    db: process.env.MONGODB_URL || 'mongodb://localhost/backend-production'
   }
 };
 
