@@ -29,6 +29,7 @@
     "github-deploy": "npm run github-deploy:dev",
     "heroku": "npm run server:prod -- -p $PORT",
     "lint": "npm run tslint \"src/**/*.ts\"",
+    "postinstall": "npm run build:prod",
     "postversion": "git push && git push --tags",
     "prebuild:dev": "npm run clean:dist",
     "prebuild:prod": "npm run clean:dist",
