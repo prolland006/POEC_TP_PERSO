@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import {Observable} from "rxjs/Rx";
 import { AppState } from '../../app.service';
 //import { Title } from './title';
 //import { XLarge } from './x-large';
@@ -72,6 +71,7 @@ export class ImageUpload {
 
     return this.http.post('/api', { img: image }) // Observable<Response>
       .toPromise() // Promise<Response>
-      .then((response) => new Image(response.json())); // Promise<Image>
+      .then((response) => new Image(response.json()))
+      .catch(error => console.error('error')); // Promise<Image>
   };
 }
