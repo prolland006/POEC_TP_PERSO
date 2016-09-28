@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { AppState } from '../app.service';
-import { Title } from './title';
-import { XLarge } from './x-large';
+//import { Title } from './title';
+//import { XLarge } from './x-large';
 import {Http} from "@angular/http";
 
 
@@ -10,15 +10,15 @@ import {Http} from "@angular/http";
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
   // where, in this case, selector is the string 'home'
-  selector: 'home',  // <home></home>
+  selector: 'upload',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
-    Title
+    //Title
   ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './home.style.css' ],
+  //styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './home.template.html'
+  templateUrl: 'upload.html'
 })
 
 class Image {
@@ -27,7 +27,7 @@ class Image {
 }
 
 
-export class Home {
+export class Upload {
 
   constructor(private http: Http) {
 

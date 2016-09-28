@@ -15,6 +15,7 @@ import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
 import { Home } from './home';
+import { Upload } from './upload';
 import { About } from './about';
 import { NoContent } from './no-content';
 import { XLarge } from './home/x-large';
