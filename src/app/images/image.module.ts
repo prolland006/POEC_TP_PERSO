@@ -1,4 +1,5 @@
 import {Images} from "./image-list/images.component";
+import {ImageUpload} from "./image-upload/image-upload.component";
 import {BypassSecurityTrustUrlPipe} from "./bypass-security-trust-url.pipe";
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
@@ -9,10 +10,12 @@ import {BrowserModule} from "@angular/platform-browser";
 @NgModule({
   declarations: [
     Images,
+    ImageUpload,
     BypassSecurityTrustUrlPipe
   ],
   exports: [
-    Images
+    Images,
+    ImageUpload
   ],
   imports: [
     BrowserModule
