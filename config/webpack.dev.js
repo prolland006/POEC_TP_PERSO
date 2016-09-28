@@ -10,6 +10,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 
 /**
@@ -125,7 +126,9 @@ module.exports = function(options) {
          *
          * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
          */
-        new NamedModulesPlugin(),
+      new NamedModulesPlugin(),
+
+      new LiveReloadPlugin()
 
     ],
 
