@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-
-import { AppState } from '../app.service';
+import {Observable} from "rxjs/Rx";
+import { AppState } from '../../app.service';
 //import { Title } from './title';
 //import { XLarge } from './x-large';
 import {Http} from "@angular/http";
+import {Image} from "../image";
 
 
 @Component({
@@ -18,16 +19,10 @@ import {Http} from "@angular/http";
   // Our list of styles in our component. We may add more to compose many styles together
   //styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: 'upload.html'
+  templateUrl: 'image-upload.html'
 })
 
-class Image {
-  imageId: string;
-  // storeType: string;
-}
-
-
-export class Upload {
+export class ImageUpload {
 
   constructor(private http: Http) {
 
@@ -72,13 +67,11 @@ export class Upload {
     this.uploadImage(this.imageSrc);   //  still have issue with fetch
   }
 
-  uploadImage(image: Image): Promise<Image> {
+  // uploadImage(image: Image): Promise<Image> {
+  uploadImage(image: any): Promise<Image> {
 
     return this.http.post('/api', { img: image }) // Observable<Response>
       .toPromise() // Promise<Response>
       .then((response) => new Image(response.json())); // Promise<Image>
   };
 }
-
-
-

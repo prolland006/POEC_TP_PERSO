@@ -7,6 +7,7 @@ class ImageStore{
 
   }
 
+  /** enregistre l'image et renvoi l'ID */
   saveImage(image) {
 
   }
