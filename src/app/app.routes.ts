@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Home } from './home';
 import { Upload } from './upload';
 import { About } from './about';
+import { Images } from './images/image-list/images.component';
 import { NoContent } from './no-content';
 
 import { DataResolver } from './app.resolver';
@@ -12,6 +13,7 @@ export const ROUTES: Routes = [
   { path: 'home',  component: Home },
   { path: 'upload',  component: Upload },
   { path: 'about', component: About },
+  { path: 'images', component: Images },
   {
     path: 'detail', loadChildren: () => System.import('./+detail')
   },
