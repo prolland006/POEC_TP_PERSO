@@ -18,6 +18,8 @@ import { Home } from './home';
 import { About } from './about';
 import { NoContent } from './no-content';
 import { XLarge } from './home/x-large';
+import {BypassSecurityTrustUrlPipe} from "./images/bypass-security-trust-url.pipe";
+import {ImageModule} from "./images/image.module";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -47,6 +49,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    ImageModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
