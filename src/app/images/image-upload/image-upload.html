@@ -7,5 +7,5 @@
   <!--select file throught button -->
   <input type="file" (change)="handleInputChange($event)" name="file" accept="image/*">
 
-  <img src="" height="200" alt="Image preview...">
+  <img [src]="imageSrc" height="200" alt="Image preview...">
 </form>
