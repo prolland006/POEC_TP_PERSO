@@ -172,12 +172,12 @@ module.exports = function(env) {
 
       new NormalModuleReplacementPlugin(
         /angular2-hmr/,
-        helpers.root('config/modules/angular2-hmr-prod.js')
+        helpers.root('config/commonModuleList/angular2-hmr-prod.js')
       ),
 
       /**
        * Plugin: IgnorePlugin
-       * Description: Don’t generate modules for requests matching the provided RegExp.
+       * Description: Don’t generate commonModuleList for requests matching the provided RegExp.
        *
        * See: http://webpack.github.io/docs/list-of-plugins.html#ignoreplugin
        */
