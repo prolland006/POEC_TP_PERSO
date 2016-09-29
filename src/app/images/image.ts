@@ -3,13 +3,16 @@
  */
 
 export class Image {
-
+  id: string;
   url: string;
-  titile: string;
+  title: string;
   description: string;
 
-  constructor({url}: {url: string}) {
+  constructor({id, url, title, description}: {id: string, url: string, title: string, description: string}) {
+    this.id = id;
     this.url = url;
+    this.title = title;
+    this.description = description;
   }
 
 }

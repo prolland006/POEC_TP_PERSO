@@ -1,21 +1,21 @@
-import {Images} from "./image-list/images.component";
+import {ImageListComponent} from "./image-list/image-list.component";
 import {BypassSecurityTrustUrlPipe} from "./bypass-security-trust-url.pipe";
 import {NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
+import {CommonHelper} from "../common-helper";
 /**
  * Created by Administrateur on 28/09/2016.
  */
 
 @NgModule({
   declarations: [
-    Images,
+    ImageListComponent,
     BypassSecurityTrustUrlPipe
   ],
   exports: [
-    Images
+    ImageListComponent
   ],
   imports: [
-    BrowserModule
+    CommonHelper.commonModuleList()
   ]
 })
 export class ImageModule {

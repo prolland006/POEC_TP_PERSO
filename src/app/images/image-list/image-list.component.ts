@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {Http} from "@angular/http";
 import {Image} from '../image';
@@ -13,11 +13,11 @@ import {DomSanitizer} from "@angular/platform-browser";
   providers: [
   ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ 'images.style.css' ],
+  styles: [ require('./image-list.css') ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: 'images.template.html'
+  template: require('./image-list.html')
 })
-export class Images {
+export class ImageListComponent implements OnInit {
 
   constructor(private http: Http) {
   }
@@ -26,15 +26,14 @@ export class Images {
 
   ngOnInit() {
     this.getImages();
-    console.log('hello `Images` component');
-    // this.title.getData().subscribe(data => this.data = data);
+    console.log('hello `ImageListComponent` component');
   }
 
   getImages() {
     this.http.get('/users/42/images')
       .map(data => data.json())
       .map(imageDataList => imageDataList.map(imageData => new Image(imageData)))
-      .subscribe(imageList => this.imageList = imageList);
+      .subscribe(imageList => {this.imageList = imageList});
   };
 
 }

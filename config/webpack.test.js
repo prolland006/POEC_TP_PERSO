@@ -32,14 +32,14 @@ module.exports = function(options) {
     devtool: 'inline-source-map',
 
     /**
-     * Options affecting the resolving of modules.
+     * Options affecting the resolving of commonModuleList.
      *
      * See: http://webpack.github.io/docs/configuration.html#resolve
      */
     resolve: {
 
       /**
-       * An array of extensions that should be used to resolve modules.
+       * An array of extensions that should be used to resolve commonModuleList.
        *
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
@@ -53,7 +53,7 @@ module.exports = function(options) {
     },
 
     /**
-     * Options affecting the normal modules.
+     * Options affecting the normal commonModuleList.
      *
      * See: http://webpack.github.io/docs/configuration.html#module
      */
