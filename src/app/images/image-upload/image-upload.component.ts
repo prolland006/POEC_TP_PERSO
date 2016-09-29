@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { AppState } from '../../app.service';
-//import { Title } from './title';
-//import { XLarge } from './x-large';
 import {Http} from "@angular/http";
 import {Image} from "../image";
+import 'rxjs/add/operator/toPromise';
+import { Headers, RequestOptions } from '@angular/http';
 
 
 @Component({
@@ -63,15 +62,16 @@ export class ImageUpload {
     this.loaded = true;
     console.log("_handleReaderLoaded imageSrc= ", this.imageSrc);
 
-    this.uploadImage(this.imageSrc);   //  still have issue with fetch
+    this.uploadImage({imgData: this.imageSrc, title: 'lololol'});   //  still have issue with fetch
   }
 
-  // uploadImage(image: Image): Promise<Image> {
-  uploadImage(image: any): Promise<Image> {
-
-    return this.http.post('/api', { img: image }) // Observable<Response>
-      .toPromise() // Promise<Response>
-      .then((response) => new Image(response.json()))
-      .catch(error => console.error('error')); // Promise<Image>
+  uploadImage(image: any): Promise<any> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+     return this.http.post('/users/123/images', JSON.stringify(image), options) // Observable<Response>
+       .toPromise() // Promise<Response>
+       .then((response) => new Image(response.json()))
+       .catch(error => console.error('error')); // Promise<Image>
   };
 }
+

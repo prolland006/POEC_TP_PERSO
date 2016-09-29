@@ -36,6 +36,7 @@ router.get('/images/:fileName', function(req ,res) {
   res.sendFile(file);
 });
 
-router.post('/api'), function(req,res) {
-  console.log('post!!!');
-}
+router.post('/users/:user_id/images', function(req,res) {
+  console.log('router.post!!!');
+  console.log(req.body);
+});
