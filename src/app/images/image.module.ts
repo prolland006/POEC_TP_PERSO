@@ -1,5 +1,5 @@
 import {ImageListComponent} from "./image-list/image-list.component";
-import {ImageUpload} from "./image-upload/image-upload.component";
+import {ImageUploadComponent} from "./image-upload/image-upload.component";
 import {BypassSecurityTrustUrlPipe} from "./bypass-security-trust-url.pipe";
 import {NgModule} from "@angular/core";
 import {CommonHelper} from "../common-helper";
@@ -10,13 +10,13 @@ import {CommonHelper} from "../common-helper";
 @NgModule({
   declarations: [
     ImageListComponent,
-    ImageUpload,
+    ImageUploadComponent,
     BypassSecurityTrustUrlPipe
   ],
   exports: [
     BypassSecurityTrustUrlPipe,
     ImageListComponent,
-    ImageUpload
+    ImageUploadComponent
   ],
   imports: [
     CommonHelper.commonModuleList()

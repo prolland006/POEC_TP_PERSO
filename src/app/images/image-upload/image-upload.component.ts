@@ -17,10 +17,10 @@ import { Headers, RequestOptions } from '@angular/http';
   // Our list of styles in our component. We may add more to compose many styles together
   //styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: 'image-upload.html'
+  template: require('./image-upload.html')
 })
 
-export class ImageUpload {
+export class ImageUploadComponent {
 
   constructor(private http: Http) {
 
@@ -68,6 +68,10 @@ export class ImageUpload {
     // console.log("_handleReaderLoaded imageSrc= ", this.imageSrc);
 
     this.uploadImage({imgData: this.imageSrc, title: this.imageName});
+  }
+
+  toString() {
+    return 'hello';
   }
 
   uploadImage(image: any): Promise<any> {
