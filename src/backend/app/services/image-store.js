@@ -1,16 +1,41 @@
 const mongoose = require('mongoose');
 const Image = mongoose.model('Image');
 const path = require('path');
+const imgOnDrive = require('./image-on-drive');
 
 class ImageStore{
   constructor() {
-
+    console.log("ImageStore constructor");
   }
+
+  // collection Images:
+  // id, type, title, description, user_id, albums
+  //
+  // collection Users:
+  // user_id, login, password, email (edited)
 
   /** enregistre l'image et renvoi l'ID */
-  saveImage(image) {
+  saveImage(user_id, title, imageData) {
+    console.log("saveImage ", user_id, title );
 
+    // TODO for type, description, albums
+    let img = new Image({type:'', title:title, description:'', user_id:user_id, albums:[]});
+
+    img.save(function(err, result) {
+
+      if (err) { console.log(err); return next(err); }
+
+      console.log("result ", result);     // >>>>>>>>> INSERT IS OK <<<<<<<<<<<
+      console.log("id ", img._id);
+      imgOnDrive.save(img._id, imageData);
+
+      // return result;
+    });
+
+    return 1;
   }
+
+
 
   getImageUrl(id, type, host) {
     //if (type === 'local') {

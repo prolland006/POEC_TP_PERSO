@@ -37,10 +37,12 @@ export class ImageUpload {
   // Way 2: select file throught button
   loaded: boolean =false;
   imageSrc: string = '';
+  imageName: string = '';
 
   handleInputChange(event) {
     console.log("handleInputChange");
-    var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    // var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0]; // file drag&drop or selection
+    var file = event.target.files[0];   // file selection
 
     var pattern = /image-*/;
     var reader = new FileReader();
@@ -49,6 +51,8 @@ export class ImageUpload {
       alert('invalid format');
       return;
     }
+
+    this.imageName = file.name;
 
     // preview the image
     reader.onload = (event) => this._handleReaderLoaded(event);
@@ -60,9 +64,10 @@ export class ImageUpload {
     var reader = event.target;
     this.imageSrc = reader.result;
     this.loaded = true;
-    console.log("_handleReaderLoaded imageSrc= ", this.imageSrc);
+    // console.log("reader ", reader);
+    // console.log("_handleReaderLoaded imageSrc= ", this.imageSrc);
 
-    this.uploadImage({imgData: this.imageSrc, title: 'lololol'});   //  still have issue with fetch
+    this.uploadImage({imgData: this.imageSrc, title: this.imageName});
   }
 
   uploadImage(image: any): Promise<any> {
@@ -71,7 +76,7 @@ export class ImageUpload {
      return this.http.post('/users/123/images', JSON.stringify(image), options) // Observable<Response>
        .toPromise() // Promise<Response>
        .then((response) => new Image(response.json()))
-       .catch(error => console.error('error')); // Promise<Image>
+       .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
   };
 }
 

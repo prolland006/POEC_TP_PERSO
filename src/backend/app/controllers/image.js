@@ -9,6 +9,9 @@ module.exports = function (app) {
   app.use('/', router);
 };
 
+/**
+ * get imagelist from a userId
+ */
 router.get('/users/:user_id/images', function (req, res, next) {
   console.log(req.params.user_id);
   Image.find({ user_id: req.params.user_id}, function(err, images) {
@@ -29,6 +32,9 @@ router.get('/users/:user_id/images', function (req, res, next) {
   });
 });
 
+/**
+ * get imagefilename from upload directory
+ */
 router.get('/images/:fileName', function(req ,res) {
   let path = require('path');
   let file = path.join(__dirname, '../upload', req.params.fileName);
@@ -37,6 +43,9 @@ router.get('/images/:fileName', function(req ,res) {
 });
 
 router.post('/users/:user_id/images', function(req,res) {
-  console.log('router.post!!!');
-  console.log(req.body);
+  console.log("POST params", req.params.user_id );
+  /** enregistre l'image et renvoi l'ID */
+  imageStore.saveImage(req.params.user_id, req.body.title, req.body.imgData);
+  console.log('router.post id');
+  res.send();
 });
