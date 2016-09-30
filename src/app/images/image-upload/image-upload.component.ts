@@ -40,8 +40,7 @@ export class ImageUploadComponent {
   imageName: string = '';
 
   handleInputChange(event) {
-    console.log("handleInputChange");
-    // var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0]; // file drag&drop or selection
+
     var file = event.target.files[0];   // file selection
 
     var pattern = /image-*/;
@@ -54,33 +53,29 @@ export class ImageUploadComponent {
 
     this.imageName = file.name;
 
-    // preview the image
     reader.onload = (event) => this._handleReaderLoaded(event);
     reader.readAsDataURL(file);
   }
 
   _handleReaderLoaded(event){
-    // console.log("_handleReaderLoaded", e);
-    var reader = event.target;
-    this.imageSrc = reader.result;
+
+    this.imageSrc = event.target.result;
     this.loaded = true;
-    // console.log("reader ", reader);
-    // console.log("_handleReaderLoaded imageSrc= ", this.imageSrc);
 
-    this.uploadImage({imgData: this.imageSrc, title: this.imageName});
-  }
+    this.uploadImage({imageData: this.imageSrc, title: this.imageName});
 
-  toString() {
-    return 'hello';
   }
 
   uploadImage(image: any): Promise<any> {
+
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-     return this.http.post('/users/123/images', JSON.stringify(image), options) // Observable<Response>
+
+    return this.http.post('/users/42/images', JSON.stringify(image), options) // Observable<Response>
        .toPromise() // Promise<Response>
        .then((response) => new Image(response.json()))
        .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
+
   };
 }
 
