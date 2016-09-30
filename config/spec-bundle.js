@@ -16,6 +16,8 @@ Error.stackTraceLimit = Infinity;
 require('core-js/es6');
 require('core-js/es7/reflect');
 
+require('../src/polyfills.browser');
+
 // Typescript emit helpers polyfill
 require('ts-helpers');
 
@@ -58,5 +60,5 @@ function requireAll(requireContext) {
   return requireContext.keys().map(requireContext);
 }
 
-// requires and returns all modules that match
+// requires and returns all commonModuleList that match
 var modules = requireAll(testContext);

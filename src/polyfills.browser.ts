@@ -33,6 +33,8 @@ import 'zone.js/dist/zone';
 // Typescript emit helpers polyfill
 import 'ts-helpers';
 
+import 'rxjs/add/operator/map';
+
 if ('production' === ENV) {
   // Production
 

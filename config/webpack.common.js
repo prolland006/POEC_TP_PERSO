@@ -43,7 +43,7 @@ module.exports = function(options) {
     metadata: METADATA,
 
     /*
-     * Cache generated modules and chunks to improve performance for multiple incremental builds.
+     * Cache generated commonModuleList and chunks to improve performance for multiple incremental builds.
      * This is enabled by default in watch mode.
      * You can pass false to disable it.
      *
@@ -66,14 +66,14 @@ module.exports = function(options) {
     },
 
     /*
-     * Options affecting the resolving of modules.
+     * Options affecting the resolving of commonModuleList.
      *
      * See: http://webpack.github.io/docs/configuration.html#resolve
      */
     resolve: {
 
       /*
-       * An array of extensions that should be used to resolve modules.
+       * An array of extensions that should be used to resolve commonModuleList.
        *
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
@@ -85,7 +85,7 @@ module.exports = function(options) {
     },
 
     /*
-     * Options affecting the normal modules.
+     * Options affecting the normal commonModuleList.
      *
      * See: http://webpack.github.io/docs/configuration.html#module
      */
@@ -211,7 +211,7 @@ module.exports = function(options) {
       /*
        * Plugin: CommonsChunkPlugin
        * Description: Shares common code between the pages.
-       * It identifies common modules and put them into a commons chunk.
+       * It identifies common commonModuleList and put them into a commons chunk.
        *
        * See: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
        * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
