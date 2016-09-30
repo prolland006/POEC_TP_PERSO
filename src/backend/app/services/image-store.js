@@ -8,7 +8,6 @@ const UPLOAD_DIRECTORY='../upload/';
 class ImageStore{
 
   constructor() {
-    console.log("ImageStore constructor");
   }
 
   // collection Images:
