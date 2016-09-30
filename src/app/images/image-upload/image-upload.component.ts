@@ -62,18 +62,21 @@ export class ImageUploadComponent {
     this.imageSrc = event.target.result;
     this.loaded = true;
 
-    this.uploadImage({imageData: this.imageSrc, title: this.imageName});
+    let image = new Image({title: this.imageName, imageData: this.imageSrc});
+//    this.uploadImage({imageData: this.imageSrc, title: this.imageName});
+    this.uploadImage(image);
 
   }
 
-  uploadImage(image: any): Promise<any> {
+  uploadImage(image: Image): Promise<any> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post('/users/42/images', JSON.stringify(image), options) // Observable<Response>
        .toPromise() // Promise<Response>
-       .then((response) => new Image(response.json()))
+//       .then((response) => new Image(response.json()))
+       .then((response) => { console.log("uploadImage ", response)} )
        .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
 
   };

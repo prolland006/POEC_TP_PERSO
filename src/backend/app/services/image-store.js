@@ -25,9 +25,10 @@ class ImageStore{
 
       if (err) { console.log(err); return next(err); }
 
-      console.log("result ", result);     // >>>>>>>>> INSERT IS OK <<<<<<<<<<<
-      console.log("id ", img._id);
-      imgOnDrive.save(img._id, imageData);
+      imgOnDrive.save(img._id, imageData)
+        .then(data => console.log('write image file OK'))
+        .catch(err => console.log('error ',err));
+
 
       // return result;
     });

@@ -9,8 +9,8 @@ class ImageOnDrive {
   }
 
   decodeBase64Image(dataString) {
-    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-      response = {};
+    let matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let response = {};
 
     if (matches.length !== 3) {
       return new Error('Invalid input string');
@@ -22,29 +22,35 @@ class ImageOnDrive {
     return response;
   }
 
+  /**
+   * write the image
+   * @param id
+   * @param imgData
+   * @returns {Promise}
+   */
   save(id , imgData) {
     let filename= UPLOAD_DIRECTORY+id+'.jpg';
 
     let path = require('path');
-    let file = path.join(__dirname, filename);
+    let filePath = path.join(__dirname, filename);
 
-    console.log("write file ", file);
+    console.log("write file ", filePath);
 
     var imageBuffer = this.decodeBase64Image(imgData);
     console.log(imageBuffer);
 
-    fs.writeFile(file, imageBuffer.data, function(err, result) {
-      if (err)
-        console.log('error: unable to write image file ',file);
-      else
-        console.log('write image file OK',file);
-
-      return result;
+    return new Promise(function(resolve,reject) {
+      fs.writeFile(filePath, imageBuffer.data, function(err)  {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(imageBuffer.data);
+        }
+      });
     });
+
   }
-
-
-
 }
 
 module.exports = new ImageOnDrive();

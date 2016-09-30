@@ -25,7 +25,6 @@ router.get('/users/:user_id/images', function (req, res, next) {
 
     Promise.all(imagePromiseList)
       .then(imageList => res.send(imageList));
-
   });
 });
 
@@ -39,9 +38,8 @@ router.get('/images/:fileName', function(req ,res) {
 });
 
 router.post('/users/:user_id/images', function(req,res) {
-  console.log("POST params", req.params.user_id );
+
   /** enregistre l'image et renvoi l'ID */
-  imageStore.saveImage(req.params.user_id, req.body.title, req.body.imgData);
-  console.log('router.post id');
+  imageStore.saveImage(req.params.user_id, req.body.title, req.body.imageData);
   res.send();
 });
