@@ -44,7 +44,7 @@
     "server:dev": "nodemon -w src/backend src/backend/start.js",
     "server:dev:hmr": "npm run server:dev -- --inline --hot",
     "server:dev-webpack": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
-    "server:prod": "node src/backend/app.js",
+    "server:prod": "node src/backend/start.js",
     "server": "npm run server:dev",
     "start:hmr": "npm run server:dev:hmr",
     "start": "npm-run-all --parallel server watch",
@@ -164,7 +164,7 @@
     "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
   },
   "engines": {
-    "node": ">= 4.2.1",
+    "node": ">= 6",
     "npm": ">= 3"
   }
 }

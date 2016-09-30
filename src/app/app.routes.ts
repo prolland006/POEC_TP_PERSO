@@ -4,6 +4,6 @@ import { ImageUploadComponent } from "./images/image-upload/image-upload.compone
 
 export const ROUTES: Routes = [
   { path: '',      component: ImageListComponent },
-  { path: 'images', component: ImageListComponent },
+  { path: 'images/:userId', component: ImageListComponent },
   { path: 'image-upload',  component: ImageUploadComponent }
 ];

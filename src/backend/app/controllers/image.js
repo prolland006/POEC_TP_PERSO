@@ -12,19 +12,21 @@ module.exports = function (app) {
 /**
  * get imagelist from a userId
  */
-router.get('/users/:user_id/images', function (req, res, next) {
-  Image.find({ user_id: req.params.user_id}, function(err, imageList) {
+router.get('/users/:userId/images', function (req, res, next) {
+  Image.findByUser(req.params.userId, (err, imageList) => {
     let imagePromiseList;
     if (err) return next(err);
     imagePromiseList = imageList.map(image => {
       return imageStore.getImageUrl(image.id, image.type)
         .then(url => {
+          if (!url)
+            return false;
           return {id: image.id, url: url, title: image.title, description: image.description};
         });
     });
 
     Promise.all(imagePromiseList)
-      .then(imageList => res.send(imageList));
+      .then(imageList => res.send(imageList.filter(image => image)));
   });
 });
 

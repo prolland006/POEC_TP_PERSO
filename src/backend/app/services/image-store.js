@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const UPLOAD_DIRECTORY='../upload/';
 
-class ImageStore{
+class ImageStore {
 
   constructor() {
   }
@@ -46,16 +46,6 @@ class ImageStore{
 
         return 1;
   }
-
-
-
-  getImageUrl(id, type, host) {
-    //if (type === 'local') {
-        let file = Promise.resolve('/images/'+path.join(id+".jpg"));
-        return file;
-    //}
-  }
-
 
   decodeBase64Image(dataString) {
     let matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
@@ -101,6 +91,12 @@ class ImageStore{
 
   }
 
+  getImageUrl(id, type) {
+    if (type === 'local') {
+      return Promise.resolve('/images/' + path.join(id + ".jpg"));
+    }
+    return Promise.resolve();
+  }
 
 }
 

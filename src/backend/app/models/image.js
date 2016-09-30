@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let ImageSchema = new Schema({
+let imageSchema = new Schema({
   type: String,
   title: String,
   description: String,
@@ -9,13 +9,9 @@ let ImageSchema = new Schema({
   albums: Array
 });
 
- // ImageSchema.query.byUser = function(user_id) {
- //   return this.find({ user_id: user_id });
- // };
+imageSchema.statics.findByUser = function(userId, callback) {
+  return this.find({ user_id: userId }, callback);
+};
 
-// ImageSchema.static.findByUser = function(user_id, callback) {
-//   return this.find({ user_id: user_id }, callback);
-// };
-
-mongoose.model('Image', ImageSchema);
+mongoose.model('Image', imageSchema);
 

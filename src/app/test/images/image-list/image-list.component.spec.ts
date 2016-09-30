@@ -1,12 +1,9 @@
-/**
- * Created by Administrateur on 29/09/2016.
- */
-
-import {TestBed, async, fakeAsync, inject, tick} from "@angular/core/testing";
+import {TestBed, async, inject, fakeAsync} from "@angular/core/testing";
 import {ImageModule} from "../../../images/image.module";
 import {ImageListComponent} from "../../../images/image-list/image-list.component";
-import {Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
+import {ImageStore} from "../../../images/image-store/image-store";
 
 describe('ImageListComponent', () => {
 
@@ -17,36 +14,28 @@ describe('ImageListComponent', () => {
         ImageModule
       ],
       providers: [
-        BaseRequestOptions,
-        MockBackend,
         {
-          provide: Http,
-          useFactory: (backend, options) => new Http(backend, options),
-          deps: [MockBackend, BaseRequestOptions]
+          provide: ActivatedRoute,
+          useValue: {}
         }
       ]
     }).compileComponents();
 
   }));
 
-  it('should display image list', inject([MockBackend], (backend) => {
+  it('should display image list', fakeAsync(inject([ActivatedRoute, ImageStore], (activatedRoute, imageStore) => {
 
     let element;
     let fixture;
 
-    /* Mock. */
-    backend.connections.subscribe(connection => {
-      expect(connection.request.method).toEqual(RequestMethod.Get);
-      expect(connection.request.url).toEqual('/users/42/images');
-      connection.mockRespond(new Response(new ResponseOptions({body: [
-        {
-          url: '/images/111111.jpg'
-        },
-        {
-          url: '/images/222222.jpg'
-        }
-      ]})));
-    });
+    spyOn(imageStore, 'getImagesFromUser').and.returnValue(Observable.from([[
+      {url: '/images/111111.jpg'},
+      {url: '/images/222222.jpg'}
+    ]]));
+
+    activatedRoute.params = Observable.from([{
+      userId: 'USER_ID'
+    }]);
 
     /* Run. */
     fixture = TestBed.createComponent(ImageListComponent);
@@ -60,6 +49,6 @@ describe('ImageListComponent', () => {
     expect(element.querySelectorAll('img')[0].getAttribute('src')).toEqual('/images/111111.jpg');
     expect(element.querySelectorAll('img')[1].getAttribute('src')).toEqual('/images/222222.jpg');
 
-  }));
+  })));
 
 });
