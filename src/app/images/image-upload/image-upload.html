@@ -1,0 +1,11 @@
+<form>
+
+  <!--enter filename and path-->
+  <!--<input type="text" [(ngModel)]="filename" name="filename">-->
+  <!--<button type="button" (click)="saveFilename(filename)">save</button>-->
+
+  <!--select file throught button -->
+  <input type="file" (change)="handleInputChange($event)" name="file" accept="image/*">
+
+  <img [src]="imageSrc" height="200" alt="Image preview...">
+</form>
