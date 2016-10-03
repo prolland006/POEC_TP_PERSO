@@ -3,7 +3,7 @@ import {Http} from "@angular/http";
 import {Image} from "../image";
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
-
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   // The selector is what angular internally uses
@@ -22,9 +22,6 @@ import { Headers, RequestOptions } from '@angular/http';
 
 export class ImageUploadComponent {
 
-  constructor(private http: Http) {
-
-  }
 
   // Way 1: take filename and path from the form
   // @Input() filename;
@@ -38,6 +35,10 @@ export class ImageUploadComponent {
   loaded: boolean =false;
   imageSrc: string = '';
   imageName: string = '';
+  userId: string;
+
+  constructor(private http: Http, private route: ActivatedRoute) {
+  }
 
   handleInputChange(event) {
 
@@ -73,12 +74,19 @@ export class ImageUploadComponent {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('/users/42/images', JSON.stringify(image), options) // Observable<Response>
+    return this.http.post('/users/'+this.userId+'/images', JSON.stringify(image), options) // Observable<Response>
        .toPromise() // Promise<Response>
 //       .then((response) => new Image(response.json()))
        .then((response) => { console.log("uploadImage ", response)} )
        .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
 
   };
+
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.userId=params['userId'];
+    });
+  }
 }
 

@@ -1,63 +1,58 @@
-/*
-import {ImageModule} from "../../../images/image.module";
-import {ImageListComponent} from "../../../images/image-list/image-list.component";
-import {Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
-*/
-import {TestBed, async, fakeAsync, inject, tick} from "@angular/core/testing";
+const app = require('../../app');
+const mongoose = require('mongoose');
+const Image = mongoose.model('Image');
+const request = require('supertest');
 const fs = require('fs');
 
-describe('ImageListComponent', () => {
+describe('Image controller', () => {
 
-  beforeEach(() => {
+  beforeEach((done) => {
+    Image.remove({}, function (err) {
+      if (err) {
+        throw err;
+      }
+      done();
+    });
+  });
 
-    TestBed.configureTestingModule({
-      imports: [
-        ImageModule
-      ],
-      providers: [
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          useFactory: (backend, options) => new Http(backend, options),
-          deps: [MockBackend, BaseRequestOptions]
-        }
-      ]
-    }).compileComponents();
-
-    // let currentPath = require('path');
-    // let path = path.join(__dirname, '../upload');
-    //
-    // fs.readdir(path, function(err, items) {
-    //   console.log(items);
-    //   console.log('nbfile ',items.length);
-    // });
+  afterEach(() => {
 
   });
 
-  it('should write a file on disk', () => {
+  it('should store images in database', (done) => {
+    const imageStore = require('../../app/services/image-store');
 
-    let file = {
-      name: 'IMAGE_TITLE.jpg',
-      size: 5466,
-      type: 'image/jpeg'
-    };
+    console.log('should store images in database');
+    imageStore.saveImage({
+      user_id: 42,
+      title: 'lel',
+      imageData: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA+Q1JFQVRPUjogZ2Qtan'
+    })
+      .then(id => {
+        Image.find({_id: id}, (err, result) => {
+          expect(result.length).toEqual(1);
+          expect(result[0].user_id).toEqual(42);
+          expect(result[0].title).toEqual('lel');
 
-    /* Mock Mongoose */
-    imageSaveSpy = jasmine.createSpy('save');
+          //TODO check file existence
+          console.log('test existence');
+          let path = require('path');
+          let filePathAndName = path.join(__dirname, '..','..','app/upload/'+id+'.jpg');
+          fs.access(filePathAndName, (err) => {
+            console.log('fs.access');
+            expect(err).toEqual(null); //the file exist
 
-    class FakeMongooseImageSave {
-      save = imageSaveSpy;
-    }
-
-      let imageStore=require('../../app/services/image-store');
-
-      imageStore.saveImage({user_id:'userid', title:'title', imageData:imageData})
+            fs.unlink(filePathAndName, (err) => {
+              console.log('remove file ',filePathAndName);
+              console.log('done');
+              done();
+            });
 
 
+          });
 
+        });
+      })
 
   });
-
 });

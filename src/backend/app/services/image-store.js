@@ -22,29 +22,34 @@ class ImageStore {
 
 
   /**
-   * enregistre l'image et renvoi l'ID
+   * enregistre l'image et renvoi une Promise contenant l'ID
    */
    saveImage(imageObject) {
-
-        console.log("saveImage ", imageObject.user_id, imageObject.title );
+      return new Promise((resolve, reject) => {
+        console.log("saveImage ", imageObject.user_id, imageObject.title);
 
         // TODO for type, description, albums
-        let img = new Image({type:'', title:imageObject.title, description:'', user_id:imageObject.user_id, albums:[]});
-
-        let that=this;
-        img.save(function(err, result) {
-
-          if (err) { console.log(err); return next(err); }
-
-          that.saveOnDisk(img._id, imageObject.imageData)
-            .then(data => console.log('write image file OK'))
-            .catch(err => console.log('error ',err));
-
-
-          // return result;
+        let img = new Image({
+          type: '',
+          title: imageObject.title,
+          description: '',
+          user_id: imageObject.user_id,
+          albums: []
         });
 
-        return 1;
+        let that = this;
+        img.save(function (err, result) {
+
+          if (err) {
+            console.log(err);
+            return next(err);
+          }
+
+          that.saveOnDisk(img._id, imageObject.imageData)
+            .then(data => resolve(img._id))
+            .catch(err => reject(err));
+        });
+      })
   }
 
   decodeBase64Image(dataString) {

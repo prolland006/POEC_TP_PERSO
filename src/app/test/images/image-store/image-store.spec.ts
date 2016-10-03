@@ -51,7 +51,6 @@ describe('ImageStore', () => {
     tick();
 
     expect(imageList.length).toEqual(2);
-    console.log(imageList);
     expect(imageList[0].url).toEqual('/images/111111.jpg');
     expect(imageList[1].url).toEqual('/images/222222.jpg');
 
