@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
 import {Image} from "../image";
 import 'rxjs/add/operator/toPromise';
@@ -74,19 +74,18 @@ export class ImageUploadComponent {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('/users/'+this.userId+'/images', JSON.stringify(image), options) // Observable<Response>
-       .toPromise() // Promise<Response>
+    return this._userId()
+      .then((userId) => this.http.post(`/users/${userId}/images`, JSON.stringify(image), options).toPromise())
 //       .then((response) => new Image(response.json()))
        .then((response) => { console.log("uploadImage ", response)} )
        .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
 
   };
 
-
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.userId=params['userId'];
-    });
+  private _userId() {
+    return this.route.params
+      .map((params) => params['userId'])
+      .toPromise();
   }
 }
 

@@ -1,9 +1,11 @@
 
 import {ImageUploadComponent} from './image-upload.component';
-import {TestBed, async, inject, fakeAsync} from "@angular/core/testing";
+import {TestBed, async, inject, fakeAsync, tick} from "@angular/core/testing";
 import {ImageModule} from "../image.module";
 import {BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response} from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 
 describe('Image Upload', () => {
 
@@ -24,6 +26,10 @@ describe('Image Upload', () => {
           provide: Http,
           useFactory: (backend, options) => new Http(backend, options),
           deps: [MockBackend, BaseRequestOptions]
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: { }
         }
       ]
     }).compileComponents();
@@ -34,9 +40,14 @@ describe('Image Upload', () => {
     window['FileReader'] = this.FileReaderBackup;
   });
 
-  it('should trigger handle input change', () => {
+  it('should trigger handle input change', fakeAsync(inject([ActivatedRoute], (activatedRoute) => {
 
     let fixture = TestBed.createComponent(ImageUploadComponent);
+
+    activatedRoute.params = Observable.from([{
+      userId: '42'
+    }]);
+
     let inputElement = fixture.debugElement.nativeElement.querySelector('input[name="file"]');
 
     spyOn(fixture.componentInstance, 'handleInputChange');
@@ -46,9 +57,9 @@ describe('Image Upload', () => {
     expect((<jasmine.Spy>fixture.componentInstance.handleInputChange).calls.count()).toEqual(1);
 
 
-  });
+  })));
 
-  it('should upload image', fakeAsync(inject([MockBackend], (backend) => {
+  fit('should upload image', fakeAsync(inject([MockBackend, ActivatedRoute], (backend, activatedRoute) => {
 
     let event;
     let file = {
@@ -59,6 +70,10 @@ describe('Image Upload', () => {
     let fixture;
     let connectionCountSpy;
     let readAsDataUrlSpy;
+
+    activatedRoute.params = Observable.from([{
+      userId: '42'
+    }]);
 
     connectionCountSpy = jasmine.createSpy('connectionCount');
 
@@ -101,12 +116,15 @@ describe('Image Upload', () => {
 
     fixture = TestBed.createComponent(ImageUploadComponent);
 
+    fixture.detectChanges();
     event = {
       target: {
         files: [file]
       }
     };
     fixture.componentInstance.handleInputChange(event);
+
+    tick();
 
     expect(readAsDataUrlSpy.calls.count()).toEqual(1);
     expect(connectionCountSpy.calls.count()).toEqual(1);
