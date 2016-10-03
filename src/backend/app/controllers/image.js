@@ -42,6 +42,6 @@ router.get('/images/:fileName', function(req ,res) {
 router.post('/users/:userId/images', function(req,res) {
 
   /** enregistre l'image et renvoi l'ID */
-  imageStore.saveImage({user_id:req.params.user_id, title:req.body.title, imageData:req.body.imageData});
+  imageStore.saveImage({userId:req.params.userId, title:req.body.title, imageData:req.body.imageData});
   res.send();
 });

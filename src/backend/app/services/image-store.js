@@ -26,14 +26,14 @@ class ImageStore {
    */
    saveImage(imageObject) {
       return new Promise((resolve, reject) => {
-        console.log("saveImage ", imageObject.user_id, imageObject.title);
+        console.log("saveImage ", imageObject.userId, imageObject.title);
 
         // TODO for type, description, albums
         let img = new Image({
-          type: '',
+          type: 'local',
           title: imageObject.title,
           description: '',
-          user_id: imageObject.user_id,
+          user_id: imageObject.userId,
           albums: []
         });
 
