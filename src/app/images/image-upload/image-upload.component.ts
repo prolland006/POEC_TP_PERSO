@@ -83,9 +83,18 @@ export class ImageUploadComponent {
   };
 
   private _userId() {
-    return this.route.params
-      .map((params) => params['userId'])
-      .toPromise();
+
+    return new Promise(resolve => {
+
+      let subscription = this.route.params
+        .map((params) => params['userId'])
+        .subscribe((userId) => {    //toPronise() is not working
+          resolve(userId);
+          subscription.unsubscribe();
+        })
+
+    });
+
   }
 }
 

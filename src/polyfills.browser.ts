@@ -34,6 +34,7 @@ import 'zone.js/dist/zone';
 import 'ts-helpers';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 if ('production' === ENV) {
   // Production
