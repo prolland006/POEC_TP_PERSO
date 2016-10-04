@@ -24,12 +24,13 @@ describe('Image controller', () => {
 
     console.log('should store images in database');
     imageStore.saveImage({
-      user_id: 42,
+      userId: 42,
       title: 'lel',
       imageData: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA+Q1JFQVRPUjogZ2Qtan'
     })
       .then(id => {
         Image.find({_id: id}, (err, result) => {
+          console.log(result);
           expect(result.length).toEqual(1);
           expect(result[0].user_id).toEqual(42);
           expect(result[0].title).toEqual('lel');
