@@ -23,7 +23,7 @@ class ImageStore {
           type: TYPE_LOCAL,
           title: imageObject.title,
           description: '',
-          user_id: imageObject.userId,
+          userId: imageObject.userId,
           albums: []
         });
 

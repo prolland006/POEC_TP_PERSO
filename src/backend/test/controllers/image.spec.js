@@ -20,11 +20,11 @@ describe('Image controller', () => {
   it('should return a list of image', (done) => {
 
     Image.insertMany([
-      {type: "local", title: "cat1", description: "this is a cat 1", user_id: 42, albums: []},
-      {type: "local", title: "cat2", description: "this is a cat 2", user_id: 42, albums: []},
-      {type: "local", title: "cat3", description: "this is a cat 3", user_id: 42, albums: []},
-      {type: "local", title: "cat4", description: "this is a cat 4", user_id: 42, albums: []},
-      {type: "local", title: "cat5", description: "this is a cat 5", user_id: 42, albums: []}
+      {type: "local", title: "cat1", description: "this is a cat 1", userId: 42, albums: []},
+      {type: "local", title: "cat2", description: "this is a cat 2", userId: 42, albums: []},
+      {type: "local", title: "cat3", description: "this is a cat 3", userId: 42, albums: []},
+      {type: "local", title: "cat4", description: "this is a cat 4", userId: 42, albums: []},
+      {type: "local", title: "cat5", description: "this is a cat 5", userId: 42, albums: []}
     ], function (err, docs) {
       if (err) { throw err }
       request(app)

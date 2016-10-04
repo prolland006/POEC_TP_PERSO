@@ -49,7 +49,6 @@ describe('ImageListComponent', () => {
     expect(element.querySelectorAll('img').length).toEqual(2);
     expect(element.querySelectorAll('img')[0].getAttribute('src')).toEqual('/upload/111111.jpg');
     expect(element.querySelectorAll('img')[1].getAttribute('src')).toEqual('/upload/222222.jpg');
-
   })));
 
 });

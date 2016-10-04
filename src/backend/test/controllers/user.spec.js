@@ -38,8 +38,7 @@ describe('User controller', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, response) => {
-
-            expect(err).toBeNull();
+            expect(err).toBeFalsy();
 
             /* should have 1 fields: token. */
             expect(Object.keys(response.body).length).toEqual(1);

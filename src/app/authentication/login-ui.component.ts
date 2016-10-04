@@ -1,8 +1,7 @@
-import { Http, Headers } from '@angular/http';
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'login.service';
-import { ActivatedRoute } from '@angular/router';
-import {Router, ROUTER_PROVIDERS} from 'angular2/router'
+import { Http } from '@angular/http';
+import { Component } from '@angular/core';
+import { LoginService } from './login.service';
+import { Router } from '@angular/router';
 
 export const INVALID_LOGIN_MESSAGE = 'Your login password is invalid.';
 export const LOGIN_ERROR_MESSAGE = 'Error during login process, see administrator.';
@@ -17,8 +16,8 @@ export const LOGIN_ERROR_MESSAGE = 'Error during login process, see administrato
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./login-ui.html'),
 
-  //redirection
-  providers: [ROUTER_PROVIDERS]
+  // redirection
+  providers: [/*ROUTER_PROVIDERS*/]
 })
 export class LoginUIComponent {
 
@@ -28,28 +27,30 @@ export class LoginUIComponent {
   loginService: LoginService;
 
 
-  constructor (private http: Http, private route: ActivatedRoute) {
+  constructor (private http: Http, private router: Router) {
       this.loginService = new LoginService(http);
-      this.loginMessage='';
+      this.loginMessage = '';
   }
 
-  login(login:string, password:string) {
-      this.loginService.login(login,password)
+  onLogin(login: string, password: string) {
+      this.loginService.login(login, password)
         .then(
           response => {
             if (response) {
-              this.route.navigate([`images/${window.localStorage.getItem('USER_ID')}`]); //redirection
+              this.router.navigate(
+                [`images/${window.localStorage.getItem('USER_ID')}`]
+              ); // redirection
             } else {
-              this.loginMessage=INVALID_LOGIN_MESSAGE;
+              this.loginMessage = INVALID_LOGIN_MESSAGE;
             }
           }
         )
         .catch(
           error => {
-            this.loginMessage=LOGIN_ERROR_MESSAGE;
-            console.error('login error ', error)
+            this.loginMessage = LOGIN_ERROR_MESSAGE;
+            console.error('login error ', error);
           }
-        );  //unable to connect display a message
+        );  // unable to connect display a message
   }
 
 }

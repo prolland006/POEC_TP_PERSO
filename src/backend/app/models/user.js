@@ -9,6 +9,7 @@ let _createToken = (id) => {
 
 let userSchema = new Schema({
   login: String,
+  userId: String,
   password: String,
   token: String
 });
@@ -23,13 +24,13 @@ userSchema.statics.getToken = function (credentials, callback) {
       return callback(new Error(), null);
     }
     if (user.token) {
-      return callback(null, user.token);
+      return callback(null, {userId: user.userId, token: user.token});
     }
-    this.update({_id: user._id}, {token: _createToken(user._id)}, (err, user) => {
+    this.update({_id: user._id}, {token: _createToken(user._id)}, (err, updatedUser) => {
       if (err) {
         return callback(err, null);
       }
-      callback(null, user.token);
+      callback(null, {userId: updatedUser.userId, token: updatedUser.token});
     });
   });
 };

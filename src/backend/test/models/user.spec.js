@@ -23,11 +23,12 @@ describe('User model', () => {
         {login: 'foo@bar.com', password: password}
       ], function (err, docs) {
         expect(err).toBeNull();
-        User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, token) => {
+        User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, object) => {
           expect(err).toBeNull();
-          User.find({_id: docs._id}, function (err, docs) {
+          User.findOne({id: docs.id}, function (err, user) {
             expect(err).toBeNull();
-            expect(token).toEqual(docs.token);
+            expect(object.token).toEqual(user.token);
+            expect(object.userId).toEqual(user.userId);
             done();
           });
         });
@@ -40,12 +41,13 @@ describe('User model', () => {
         {login: 'foo@bar.com', password: password, token: 'sisitavu'}
       ], function (err, docs) {
         expect(err).toBeNull();
-        User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, token) => {
+        User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, object) => {
           expect(err).toBeNull();
-          expect(token).toEqual('sisitavu');
-          User.findOne({id: docs._id}, function (err, user) {
+          expect(object.token).toEqual('sisitavu');
+          User.findOne({id: docs.id}, function (err, user) {
             expect(err).toBeNull();
-            expect(user.token).toEqual('sisitavu');
+            expect(object.token).toEqual(user.token);
+            expect(object.userId).toEqual(user.userId);
             done();
           });
         });
