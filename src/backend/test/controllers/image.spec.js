@@ -39,19 +39,19 @@ describe('Image controller', () => {
           expect(Object.keys(response.body[0]).length).toEqual(4);
           expect(response.body[0].id).toMatch(/^[0-9a-f]+$/);
           expect(response.body[0].title).toEqual('cat1');
-          expect(response.body[0].url).toEqual(`/images/${response.body[0].id}.jpg`);
+          expect(response.body[0].url).toEqual(`/upload/${response.body[0].id}.jpg`);
           expect(response.body[1].id).toMatch(/^[0-9a-f]+$/);
           expect(response.body[1].title).toEqual('cat2');
-          expect(response.body[1].url).toEqual(`/images/${response.body[1].id}.jpg`);
+          expect(response.body[1].url).toEqual(`/upload/${response.body[1].id}.jpg`);
           expect(response.body[2].id).toMatch(/^[0-9a-f]+$/);
           expect(response.body[2].title).toEqual('cat3');
-          expect(response.body[2].url).toEqual(`/images/${response.body[2].id}.jpg`);
+          expect(response.body[2].url).toEqual(`/upload/${response.body[2].id}.jpg`);
           expect(response.body[3].id).toMatch(/^[0-9a-f]+$/);
           expect(response.body[3].title).toEqual('cat4');
-          expect(response.body[3].url).toEqual(`/images/${response.body[3].id}.jpg`);
+          expect(response.body[3].url).toEqual(`/upload/${response.body[3].id}.jpg`);
           expect(response.body[4].id).toMatch(/^[0-9a-f]+$/);
           expect(response.body[4].title).toEqual('cat5');
-          expect(response.body[4].url).toEqual(`/images/${response.body[4].id}.jpg`);
+          expect(response.body[4].url).toEqual(`/upload/${response.body[4].id}.jpg`);
           done();
         });
 

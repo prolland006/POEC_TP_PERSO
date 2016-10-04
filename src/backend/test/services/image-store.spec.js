@@ -38,7 +38,7 @@ describe('Image controller', () => {
           //TODO check file existence
           console.log('test existence');
           let path = require('path');
-          let filePathAndName = path.join(__dirname, '..','..','app/upload/'+id+'.jpg');
+          let filePathAndName = path.join(__dirname, '..','..','..','..','dist/upload/'+id+'.jpg');
           fs.access(filePathAndName, (err) => {
             console.log('fs.access');
             expect(err).toEqual(null); //the file exist
