@@ -3,24 +3,13 @@ const Image = mongoose.model('Image');
 const path = require('path');
 const fs = require('fs');
 
-const UPLOAD_DIRECTORY='../upload/';
+const UPLOAD_DIRECTORY='../../../../dist/upload/';
 const TYPE_LOCAL = 'local';
 
 class ImageStore {
 
   constructor() {
   }
-
-  // collection Images:
-  // id, type, title, description, user_id, albums
-  //
-  // collection Users:
-  // user_id, login, password, email (edited)
-
-
-  // {user_id:req.params.user_id, title:req.body.title, imageData:req.body.imageData}
-//  saveImage(user_id, title, imageData) {
-
 
   /**
    * enregistre l'image et renvoi une Promise contenant l'ID
@@ -99,7 +88,7 @@ class ImageStore {
 
   getImageUrl(id, type) {
     if (type === TYPE_LOCAL) {
-      return Promise.resolve('/images/' + path.join(id + ".jpg"));
+      return Promise.resolve('/upload/' + path.join(id + ".jpg"));
     }
     return Promise.resolve();
   }
