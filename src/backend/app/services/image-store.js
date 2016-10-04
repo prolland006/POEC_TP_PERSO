@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const UPLOAD_DIRECTORY='../upload/';
+const TYPE_LOCAL = 'local';
 
 class ImageStore {
 
@@ -30,7 +31,7 @@ class ImageStore {
 
         // TODO for type, description, albums
         let img = new Image({
-          type: 'local',
+          type: TYPE_LOCAL,
           title: imageObject.title,
           description: '',
           user_id: imageObject.userId,
@@ -97,7 +98,7 @@ class ImageStore {
   }
 
   getImageUrl(id, type) {
-    if (type === 'local') {
+    if (type === TYPE_LOCAL) {
       return Promise.resolve('/images/' + path.join(id + ".jpg"));
     }
     return Promise.resolve();
