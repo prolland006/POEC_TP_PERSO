@@ -1,0 +1,7 @@
+<div class="card-container">
+    <h1 x-large class="sample-content">User authentification</h1>
+    <input type="text" name="login" placeholder="login" [(ngModel)]="login">
+    <input type="text" name="password" placeholder="password" [(ngModel)]="password">
+    <button name="loginButton" (click)="login(login,password)">Login</button>
+    <span>{{ loginMessage }}</span>
+</div>
