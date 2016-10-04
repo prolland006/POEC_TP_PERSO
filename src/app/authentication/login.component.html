@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div class="login">
+  <h1 x-large class="sample-content">Login</h1>
+  <form role="form" (submit)="login($event, username.value, password.value)">
+    <div class="form-group">
+      <label for="username">Login</label>
+      <input type="text" #username class="form-control" id="username" placeholder="Login (Email)">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" #password class="form-control" id="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    <a href="/signup">Click here to Signup</a>
+  </form>
+</div>
+</body>
+</html>

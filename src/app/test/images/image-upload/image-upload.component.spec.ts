@@ -1,11 +1,11 @@
 
-import {ImageUploadComponent} from './image-upload.component';
-import {TestBed, async, inject, fakeAsync, tick} from "@angular/core/testing";
-import {ImageModule} from "../image.module";
-import {BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
+import { ImageUploadComponent } from '../../../images/image-upload/image-upload.component';
+import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { ImageModule } from '../../../images/image.module';
+import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 describe('Image Upload', () => {
 
@@ -59,7 +59,8 @@ describe('Image Upload', () => {
 
   })));
 
-  fit('should upload image', fakeAsync(inject([MockBackend, ActivatedRoute], (backend, activatedRoute) => {
+  it('should upload image',
+    fakeAsync(inject([MockBackend, ActivatedRoute], (backend, activatedRoute) => {
 
     let event;
     let file = {
