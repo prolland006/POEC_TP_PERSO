@@ -1,8 +1,8 @@
-import {TestBed, async, fakeAsync, inject, tick} from "@angular/core/testing";
-import {ImageModule} from "../../../images/image.module";
-import {ImageStore} from "../../../images/image-store/image-store";
-import {Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
+import { TestBed, async, fakeAsync, inject, tick } from '@angular/core/testing';
+import { ImageModule } from '../../../images/image.module';
+import { ImageStore } from '../../../images/image-store/image-store';
+import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 describe('ImageStore', () => {
 
@@ -25,7 +25,8 @@ describe('ImageStore', () => {
 
   }));
 
-  it('should return image list Observable', fakeAsync(inject([ImageStore, MockBackend], (imageStore, mockBackend) => {
+  it('should return image list Observable',
+      fakeAsync(inject([ImageStore, MockBackend], (imageStore, mockBackend) => {
 
     let imageList;
 

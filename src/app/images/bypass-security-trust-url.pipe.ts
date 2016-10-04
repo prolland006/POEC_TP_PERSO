@@ -3,7 +3,7 @@
  */
 
 import { Pipe, PipeTransform } from '@angular/core';
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 /*
  * Raise the value exponentially
  * Takes an exponent argument that defaults to 1.

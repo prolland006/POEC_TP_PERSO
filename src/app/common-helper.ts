@@ -1,6 +1,6 @@
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 export class CommonHelper {
 
@@ -9,7 +9,7 @@ export class CommonHelper {
       BrowserModule,
       FormsModule,
       HttpModule
-    ]
-  }
+    ];
+  };
 
 }
