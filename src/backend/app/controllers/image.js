@@ -5,6 +5,9 @@ const imageStore = require('../services/image-store');
 
 module.exports.defineRoutes = function (router) {
 
+  /**
+   * get imagelist from a userId
+   */
   router.get('/users/:userId/images', function (req, res, next) {
     Image.findByUser(req.params.userId, (err, imageList) => {
       let imagePromiseList;
@@ -23,10 +26,11 @@ module.exports.defineRoutes = function (router) {
     });
   });
 
-  router.get('/images/:fileName', function (req, res) {
-    let path = require('path');
-    let file = path.join(__dirname, '../upload', req.params.fileName);
-    res.sendFile(file);
+  router.post('/users/:userId/images', function (req, res) {
+
+    /** enregistre l'image et renvoi l'ID */
+    imageStore.saveImage({userId: req.params.userId, title: req.body.title, imageData: req.body.imageData});
+    res.send();
   });
 
-}
+};

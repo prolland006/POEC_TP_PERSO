@@ -22,8 +22,14 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </span>
       |
       <span>
-        <a [routerLink]=" ['./images'] ">
-          Images
+        <a [routerLink]=" ['./image-upload/42'] ">
+          Upload
+        </a>
+      </span>
+      |
+      <span>
+        <a [routerLink]=" ['./images/42'] ">
+          My Images
         </a>
       </span>
     </nav>
