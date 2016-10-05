@@ -1,9 +1,9 @@
 
 import { MockBackend } from '@angular/http/testing';
 import { Http, BaseRequestOptions, ResponseOptions, Response, RequestMethod } from '@angular/http';
-import { SignupService } from '../../../app/authentication/signup.service';
+import { SignupService } from '../../../app/signup/signup.service';
 import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
-import { SignupModule } from '../../authentication/signup.module';
+import { SignupModule } from '../../signup/signup.module';
 
 describe('SignupTest', () => {
 
@@ -51,7 +51,7 @@ describe('SignupTest', () => {
         let localStorage_token   = window.localStorage.getItem('TOKEN');
         // console.log('signupTest receives resp/id/token ' + response + "/" + localStorage_user_id + "/" + localStorage_token);
 
-        expect(response).toEqual(true);
+        expect(response).toBeTruthy();
         expect(localStorage_user_id).toEqual('45');
         expect(localStorage_token).toEqual('fake-token-1');
 
@@ -81,7 +81,7 @@ describe('SignupTest', () => {
 
       /* Test. */
       signupUser.then((response) => {
-        expect(response).toEqual(false);
+        expect(response).toBeFalsy();
       });
     }))
   );

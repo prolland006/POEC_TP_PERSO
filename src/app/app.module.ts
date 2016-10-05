@@ -12,6 +12,8 @@ import { ImageModule } from './images/image.module';
 import { CommonHelper } from './common-helper';
 import { LoginModule } from './authentication/login.module';
 import {LoginUIComponent} from "./authentication/login-ui.component";
+import { SignupModule } from './signup/signup.module';
+import { SignupUIComponent} from "./signup/signup-ui.component";
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -26,6 +28,8 @@ import {LoginUIComponent} from "./authentication/login-ui.component";
     ImageModule,
     LoginModule,
     LoginUIComponent,
+    SignupModule,
+    SignupUIComponent,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
