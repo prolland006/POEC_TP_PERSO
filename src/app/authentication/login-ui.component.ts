@@ -24,7 +24,6 @@ export class LoginUIComponent {
   login: string;
   password: string;
   loginMessage: string;
-  loginService: LoginService;
 
 
   constructor (private http: Http, private loginService: LoginService, private router: Router) {
