@@ -20,7 +20,7 @@ describe('User model', () => {
     it('should create a token if it doesn\'t exist', (done) => {
       let password = crypto.createHash('sha256').update('yoloswag').digest('base64');
       User.insertMany([
-        {login: 'foo@bar.com', password: password, userId: '42'}
+        {login: 'foo@bar.com', password: password}
       ], function (err, docs) {
         expect(err).toBeNull();
         User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, object) => {
@@ -28,7 +28,7 @@ describe('User model', () => {
           User.findOne({id: docs.id}, function (err, user) {
             expect(err).toBeNull();
             expect(object.token).toEqual(user.token);
-            expect(object.userId).toEqual(user.userId);
+            expect(object.userId).toEqual(user.id);
             done();
           });
         });
@@ -47,7 +47,7 @@ describe('User model', () => {
           User.findOne({id: docs.id}, function (err, user) {
             expect(err).toBeNull();
             expect(object.token).toEqual(user.token);
-            expect(object.userId).toEqual(user.userId);
+            expect(object.userId).toEqual(user.id);
             done();
           });
         });
