@@ -16,7 +16,7 @@ const authenticationMiddleware = (req, res, next) => {
   }
   User.checkToken(token, (err, user) => {
     if (!err && user) {
-      req.token = user;
+      req.user = user;
     }
     next();
   })

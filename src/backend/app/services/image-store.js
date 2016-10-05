@@ -53,19 +53,6 @@ class ImageStore {
     return response;
   }
 
-  saveFile(imageBuffer, filePath) {
-    return new Promise((resolve, reject) => {
-      fs.writeFile(filePath, imageBuffer.data, function (err) {
-        if (err) {
-          reject(err);
-        }
-        else {
-          resolve(imageBuffer.data);
-        }
-      });
-    });
-  }
-
   /**
    * write the image
    * @param id
