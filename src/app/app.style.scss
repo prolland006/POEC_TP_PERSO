@@ -8,3 +8,70 @@ html, body{
 span.active {
   background-color: gray;
 }
+
+form.form_upload{
+  text-align: center;
+}
+
+
+div.card-container{
+  text-align: center;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+
+div.mdl-layout__header-row nav.mdl-navigation {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+
+div.card-container img.image_list{
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 4px #aaa;
+  width: 120px;
+}
+
+
+div.card-container img.image_preview{
+  height: 200px;
+  min-width: 200px;
+  background-color: #D8D8D8;
+  margin-bottom: 20px;
+}
+
+
+span.mdl-layout-title{
+  padding-left: 33px;
+}
+
+
+.mdl-mega-footer{
+  margin-top: 50px;
+}
+
+a.mdl-navigation__link:hover{
+color: #33D3FF;
+}
+
+
+ul.mdl-mega-footer__link-list li:hover{
+  color: white;
+}
+
+@media(max-width: 600px) {
+  div.mdl-layout__header-row nav.mdl-navigation {
+    display: none;
+  }
+}
+
+@media(min-width: 600px) {
+div.mdl-layout__drawer-button{
+  display: none;
+}
+
+  }
+
