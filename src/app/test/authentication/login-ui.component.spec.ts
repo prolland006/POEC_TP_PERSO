@@ -1,11 +1,8 @@
-///<reference path="../../authentication/login-ui.component.ts"/>
-import {TestBed, async, inject, fakeAsync, tick} from '@angular/core/testing';
+import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { LoginUIComponent } from '../../authentication/login-ui.component';
 import { LoginService } from '../../authentication/login.service';
 import { LoginModule } from '../../authentication/login.module';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-import {Router, RouterModule} from "@angular/router";
+import { Router, RouterModule } from '@angular/router';
 import * as $ from 'jquery';
 
 const INVALID_LOGIN_MESSAGE = 'Your login password is invalid.';
@@ -49,8 +46,6 @@ describe('LoginUI', () => {
       let inputElementMessage = fixture.debugElement.nativeElement
         .querySelector('span.tp-message');
 
-      inputElementLogin.value = 'patricerolland@yahoo.fr';
-      inputElementPassword.value = 'toto';
       let event = document.createEvent('Event');
       event.initEvent('input', true, false);
       inputElementLogin.dispatchEvent(event);
@@ -72,7 +67,8 @@ describe('LoginUI', () => {
       fixture.detectChanges();
 
       expect((<jasmine.Spy>loginService.login).calls.count()).toEqual(1);
-      expect((<jasmine.Spy>loginService.login).calls.argsFor(0)).toEqual(['patricerolland@yahoo.fr', 'toto']);
+      expect((<jasmine.Spy>loginService.login).calls.argsFor(0))
+        .toEqual(['patricerolland@yahoo.fr', 'toto']);
 
       expect((<jasmine.Spy>router.navigate).calls.count()).toEqual(0);
 
