@@ -1,6 +1,6 @@
 
 const isLoggedMiddleware = (req, res, next, err) => {
-  if (req.param('userId')) {
+  if (req.user) {
     return next();
   }
   return err();
