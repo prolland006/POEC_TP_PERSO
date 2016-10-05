@@ -1,10 +1,14 @@
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Http, BaseRequestOptions, ResponseOptions, Response, RequestMethod } from '@angular/http';
 import { LoginService } from '../../../app/authentication/login.service';
-import { TestBed, inject, fakeAsync } from '@angular/core/testing';
+import {TestBed, inject, fakeAsync, tick} from '@angular/core/testing';
 import { LoginModule } from '../../authentication/login.module';
 
 describe('LoginTest', () => {
+
+  let _reset = () => {
+    window.localStorage.clear();
+  };
 
   beforeEach(() => {
 
@@ -25,6 +29,8 @@ describe('LoginTest', () => {
 
   });
 
+  beforeEach(_reset);
+  afterEach(_reset);
 
   it('Should receive error message if login/password not correct',
     fakeAsync(inject([LoginService, MockBackend], (loginService, mockBackend) => {
@@ -48,6 +54,7 @@ describe('LoginTest', () => {
 //           expect(response.json().token).toEqual('fake-token22');
 //
 //         });
+      tick();
 
       loginUser.then(connected => {
         expect(connected).toBeFalsy();
@@ -56,7 +63,7 @@ describe('LoginTest', () => {
     })));
 
   it('should return userId and token',
-    (inject([LoginService, MockBackend], (loginService, mockBackend) => {
+    fakeAsync(inject([LoginService, MockBackend], (loginService, mockBackend) => {
 
       mockBackend.connections.subscribe(connection => {
         expect(connection.request.method).toEqual(RequestMethod.Post);
@@ -70,15 +77,19 @@ describe('LoginTest', () => {
       /* Run. */
       let loginUser = loginService.login({login: 'foo@bar.com', password: 'secret'});
 
+      /* Trigger async stuff. */
+      tick();
+
       /* Test. */
       loginUser.then(connected => {
         expect(connected).toBeTruthy();
       });
+
     })));
 
 
   it('should store the current authentication token in local storage',
-    (inject([LoginService, MockBackend], (loginService, mockBackend) => {
+    fakeAsync(inject([LoginService, MockBackend], (loginService, mockBackend) => {
 
       let USER_ID;
 
@@ -94,6 +105,8 @@ describe('LoginTest', () => {
       /* Run. */
       let loginUser = loginService.login({login: 'foo@bar.com', password: 'secret'});
 
+      tick();
+
       /* Test. */
       loginUser.then((connected) => {
         expect(connected).toBeTruthy();
@@ -102,9 +115,6 @@ describe('LoginTest', () => {
       let userId = window.localStorage.getItem('USER_ID');
       expect(userToken).toEqual('fake-token-222');
       expect(userId).toEqual('43');
-
-      /* Remove this local storage */
-      window.localStorage.removeItem(USER_ID);
 
     })));
 

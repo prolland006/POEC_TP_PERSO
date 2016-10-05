@@ -17,14 +17,14 @@ export class LoginService {
     // Response{_body: '{"userId":42,"token":"fake-token"}',
       // status: 200, ok: true, statusText: null, headers: null, type: null, url: null}
       .then(response => response.json())
-      .then((response) => {
-        let token = response && response.token;
+      .then((data: any) => {
+        let token = data && data.token;
 
         if (token) {
 
           // store username and token in local storage to keep user logged in
-          window.localStorage.setItem( 'TOKEN', response.token );
-          window.localStorage.setItem( 'USER_ID', response.userId );
+          window.localStorage.setItem( 'TOKEN', data.token );
+          window.localStorage.setItem( 'USER_ID', data.userId );
           // this.isLoggedin = true;
           return true;
         } else {
