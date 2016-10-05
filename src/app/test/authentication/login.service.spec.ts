@@ -1,7 +1,7 @@
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { MockBackend } from '@angular/http/testing';
 import { Http, BaseRequestOptions, ResponseOptions, Response, RequestMethod } from '@angular/http';
 import { LoginService } from '../../../app/authentication/login.service';
-import {TestBed, inject, fakeAsync, tick} from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { LoginModule } from '../../authentication/login.module';
 
 describe('LoginTest', () => {
