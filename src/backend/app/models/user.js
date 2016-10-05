@@ -26,11 +26,12 @@ userSchema.statics.getToken = function (credentials, callback) {
     if (user.token) {
       return callback(null, {userId: user.userId, token: user.token});
     }
-    this.update({_id: user._id}, {token: _createToken(user._id)}, (err, updatedUser) => {
+    let token = _createToken(user._id);
+    this.update({_id: user._id}, {token: token}, (err, updatedUser) => {
       if (err) {
         return callback(err, null);
       }
-      callback(null, {userId: updatedUser.userId, token: updatedUser.token});
+      callback(null, {userId: user.userId, token: token});
     });
   });
 };
@@ -38,7 +39,6 @@ userSchema.statics.getToken = function (credentials, callback) {
 userSchema.statics.checkToken = function (token, callback) {
   this.findOne({token: token}, (err, user) => {
     if (err) {
-      console.log(err);
       callback(err, false);
     }
     if (user && user.token) {

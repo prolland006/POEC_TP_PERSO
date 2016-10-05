@@ -16,8 +16,6 @@ class ImageStore {
    */
    saveImage(imageObject) {
       return new Promise((resolve, reject) => {
-        console.log("saveImage ", imageObject.userId, imageObject.title);
-
         // TODO for type, description, albums
         let img = new Image({
           type: TYPE_LOCAL,
@@ -31,7 +29,6 @@ class ImageStore {
         img.save(function (err, result) {
 
           if (err) {
-            console.log(err);
             return next(err);
           }
 
@@ -68,10 +65,7 @@ class ImageStore {
     let path = require('path');
     let filePath = path.join(__dirname, filename);
 
-    console.log("write file ", filePath);
-
     var imageBuffer = this.decodeBase64Image(imgData);
-    console.log(imageBuffer);
 
     return new Promise(function(resolve,reject) {
       fs.writeFile(filePath, imageBuffer.data, function(err)  {

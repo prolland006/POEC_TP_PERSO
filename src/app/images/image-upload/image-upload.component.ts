@@ -78,11 +78,10 @@ export class ImageUploadComponent {
       .then((userId) =>
         this.http.post(`/users/${userId}/images`, JSON.stringify(image), options)
           .toPromise()
-      )
+      );
 //       .then((response) => new Image(response.json()))
-       .then((response) => { console.log('uploadImage', response); } )
-       .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
-
+//       .then((response) => { console.log('uploadImage', response); } )
+ //      .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
   };
 
   private _userId() {

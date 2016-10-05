@@ -20,7 +20,7 @@ describe('User model', () => {
     it('should create a token if it doesn\'t exist', (done) => {
       let password = crypto.createHash('sha256').update('yoloswag').digest('base64');
       User.insertMany([
-        {login: 'foo@bar.com', password: password}
+        {login: 'foo@bar.com', password: password, userId: '42'}
       ], function (err, docs) {
         expect(err).toBeNull();
         User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, object) => {

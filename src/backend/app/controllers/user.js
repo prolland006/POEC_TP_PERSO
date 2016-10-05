@@ -7,7 +7,6 @@ module.exports.defineRoutes = function (router) {
   router.post('/login', function (req, res, next) {
 
     if (!req.body || !req.body.login || !req.body.password) {
-      console.log('error lel');
       return res.send(404);
     }
 
@@ -15,7 +14,8 @@ module.exports.defineRoutes = function (router) {
       if (err) {
         return res.send(404);
       }
-      res.send(200, userCredential);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(userCredential);
     });
 
   });

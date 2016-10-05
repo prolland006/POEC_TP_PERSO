@@ -26,10 +26,10 @@ describe('User controller', () => {
       User.getToken = userGetTokenBackup;
     });
 
-    it('should return a token', (done) => {
+    it('should return an object {token, userId}', (done) => {
 
       User.getToken = jasmine.createSpy('getToken').andCallFake((credential, callback) => {
-        callback(null, '4242424242');
+        callback(null, {token: '4242424242', userId: '42'});
       });
 
       request(app)
@@ -38,12 +38,11 @@ describe('User controller', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, response) => {
-            expect(err).toBeFalsy();
-
+            expect(err).toBeNull();
             /* should have 1 fields: token. */
-            expect(Object.keys(response.body).length).toEqual(1);
+            expect(Object.keys(response.body).length).toEqual(2);
             expect(response.body.token).toEqual('4242424242');
-
+            expect(response.body.userId).toEqual('42');
             done();
 
         });
