@@ -15,7 +15,6 @@ let _createToken = (id) => {
 
 let userSchema = new Schema({
   login: String,
-  userId: String,
   password: String,
   token: String
 });
@@ -30,15 +29,15 @@ userSchema.statics.getToken = function (credentials, callback) {
       return callback(new Error(), null);
     }
     if (user.token) {
-      return callback(null, {userId: user.userId, token: user.token});
+      return callback(null, {userId: user.id, token: user.token});
     }
-    _createToken(user._id)
+    _createToken(user.id)
       .then(token => {
         this.update({_id: user._id}, {token: token}, (err, docs) => {
           if (err) {
             return callback(err, null);
           }
-          callback(null, {userId: user.userId, token: token});
+          callback(null, {userId: user.id, token: token});
         });
       })
       .catch(err => {

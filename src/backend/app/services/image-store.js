@@ -54,7 +54,6 @@ class ImageStore {
   }
 
   saveFile(imageBuffer, filePath) {
-    console.log('ltltltlt');
     return new Promise((resolve, reject) => {
       fs.writeFile(filePath, imageBuffer.data, function (err) {
         if (err) {
