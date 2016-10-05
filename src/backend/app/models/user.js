@@ -3,8 +3,14 @@ const Schema = mongoose.Schema;
 const crypto = require("crypto");
 
 let _createToken = (id) => {
-  //TODO generate proper hash
-  return id + '123';
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(64, function (err, buffer) {
+      if (err) {
+        reject(err);
+      }
+      resolve(id + buffer.toString('hex'));
+    });
+  });
 };
 
 let userSchema = new Schema({
@@ -26,13 +32,18 @@ userSchema.statics.getToken = function (credentials, callback) {
     if (user.token) {
       return callback(null, {userId: user.userId, token: user.token});
     }
-    let token = _createToken(user._id);
-    this.update({_id: user._id}, {token: token}, (err, updatedUser) => {
-      if (err) {
-        return callback(err, null);
-      }
-      callback(null, {userId: user.userId, token: token});
-    });
+    _createToken(user._id)
+      .then(token => {
+        this.update({_id: user._id}, {token: token}, (err, docs) => {
+          if (err) {
+            return callback(err, null);
+          }
+          callback(null, {userId: user.userId, token: token});
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
   });
 };
 
@@ -42,9 +53,9 @@ userSchema.statics.checkToken = function (token, callback) {
       callback(err, false);
     }
     if (user && user.token) {
-      return callback(null, true);
+      return callback(null, user);
     }
-    return callback(null, false);
+    return callback(null, null);
   });
 };
 

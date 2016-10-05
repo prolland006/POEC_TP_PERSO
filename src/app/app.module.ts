@@ -25,7 +25,6 @@ import {LoginUIComponent} from "./authentication/login-ui.component";
     CommonHelper.commonModuleList(),
     ImageModule,
     LoginModule,
-    LoginUIComponent,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

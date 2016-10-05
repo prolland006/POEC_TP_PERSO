@@ -4,7 +4,7 @@ const Image = mongoose.model('Image');
 const request = require('supertest');
 const fs = require('fs');
 
-describe('Image controller', () => {
+describe('Image-store service', () => {
 
   beforeEach((done) => {
     Image.remove({}, function (err) {
