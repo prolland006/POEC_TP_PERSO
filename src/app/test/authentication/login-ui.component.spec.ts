@@ -39,9 +39,9 @@ describe('LoginUI', () => {
       fixture.detectChanges();
 
       let inputElementPassword = fixture.debugElement.nativeElement
-        .querySelector('input[name="password"]');
+        .querySelector('.input-login');
       let inputElementLogin = fixture.debugElement.nativeElement
-        .querySelector('input[name="login"]');
+        .querySelector('input-password');
       let formElement = fixture.debugElement.nativeElement
         .querySelector('form');
       let inputElementMessage = fixture.debugElement.nativeElement
