@@ -1,9 +1,9 @@
 
-const isLoggedMiddleware = (req, res, next, err) => {
+const isLoggedMiddleware = (req, res, next) => {
   if (req.user) {
-    return next();
+    return next(null);
   }
-  return err();
+  return next(new Error());
 };
 
 module.exports = isLoggedMiddleware;

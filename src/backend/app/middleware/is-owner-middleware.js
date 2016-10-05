@@ -1,9 +1,9 @@
 
-const isOwnerMiddleware = (req, res, next, err) => {
+const isOwnerMiddleware = (req, res, next) => {
   if (req.user && req.user.id && req.param('userId') === req.user.id) {
-    return next();
+    return next(null);
   }
-  return err();
+  return next(new Error());
 };
 
 module.exports = isOwnerMiddleware;

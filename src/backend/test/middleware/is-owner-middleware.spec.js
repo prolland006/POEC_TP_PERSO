@@ -15,27 +15,23 @@ describe('isOwnerMiddleware', () => {
       }
     };
     let res = {};
-    let next = () => {
+    let next = (err) => {
+      expect(err).toBeNull();
       done();
     };
-    let err = () => {
-      throw new Error();
-    };
 
-    isOwnerMiddleware(req, res, next, err);
+    isOwnerMiddleware(req, res, next);
   });
 
   it('should call err if req.token is not defined and query parameter not defined', (done) => {
     let req = {param: () => {}};
     let res = {};
-    let next = () => {
-      throw new Error();
-    };
-    let err = () => {
+    let next = (err) => {
+      expect(err).not.toBeNull();
       done();
     };
 
-    isOwnerMiddleware(req, res, next, err);
+    isOwnerMiddleware(req, res, next);
   });
 
   it('should call err if query parameter not defined', (done) => {
@@ -44,14 +40,12 @@ describe('isOwnerMiddleware', () => {
       param: () => {}
     };
     let res = {};
-    let next = () => {
-      throw new Error();
-    };
-    let err = () => {
+    let next = (err) => {
+      expect(err).not.toBeNull();
       done();
     };
 
-    isOwnerMiddleware(req, res, next, err);
+    isOwnerMiddleware(req, res, next);
   });
 
   it('should call err if req.token is not defined', (done) => {
@@ -63,14 +57,12 @@ describe('isOwnerMiddleware', () => {
       }
     };
     let res = {};
-    let next = () => {
-      throw new Error();
-    };
-    let err = () => {
+    let next = (err) => {
+      expect(err).not.toBeNull();
       done();
     };
 
-    isOwnerMiddleware(req, res, next, err);
+    isOwnerMiddleware(req, res, next);
   });
 
   it('should call err if req.token does not match with query parameter', (done) => {
@@ -83,14 +75,12 @@ describe('isOwnerMiddleware', () => {
       }
     };
     let res = {};
-    let next = () => {
-      throw new Error();
-    };
-    let err = () => {
+    let next = (err) => {
+      expect(err).not.toBeNull();
       done();
     };
 
-    isOwnerMiddleware(req, res, next, err);
+    isOwnerMiddleware(req, res, next);
   });
 
 });
