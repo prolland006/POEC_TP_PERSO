@@ -121,6 +121,7 @@
     "imports-loader": "^0.6.5",
     "istanbul-instrumenter-loader": "^0.2.0",
     "jasmine-node": "^1.14.5",
+    "jquery": "^3.1.1",
     "json-loader": "^0.5.4",
     "karma": "^1.2.0",
     "karma-chrome-launcher": "^2.0.0 ",
