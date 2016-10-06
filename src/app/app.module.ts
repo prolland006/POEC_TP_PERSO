@@ -27,9 +27,7 @@ import { SignupUIComponent} from "./signup/signup-ui.component";
     CommonHelper.commonModuleList(),
     ImageModule,
     LoginModule,
-    LoginUIComponent,
     SignupModule,
-    SignupUIComponent,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

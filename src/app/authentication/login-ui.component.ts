@@ -3,9 +3,6 @@ import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 
-export const INVALID_LOGIN_MESSAGE = 'Your login password is invalid.';
-export const LOGIN_ERROR_MESSAGE = 'Error during login process, see administrator.';
-
 @Component({
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
@@ -21,18 +18,22 @@ export const LOGIN_ERROR_MESSAGE = 'Error during login process, see administrato
 })
 export class LoginUIComponent {
 
+  static INVALID_LOGIN_MESSAGE = 'Your login password is invalid.';
+  static LOGIN_ERROR_MESSAGE = 'Error during login process, see administrator.';
+
   login: string;
   password: string;
   loginMessage: string;
-  loginService: LoginService;
 
 
-  constructor (private http: Http, private router: Router) {
-      this.loginService = new LoginService(http);
+  constructor (private http: Http, private loginService: LoginService, private router: Router) {
       this.loginMessage = '';
   }
 
   onLogin(login: string, password: string) {
+
+    console.log('onLogin');
+
       this.loginService.login(login, password)
         .then(
           response => {
@@ -41,13 +42,13 @@ export class LoginUIComponent {
                 [`images/${window.localStorage.getItem('USER_ID')}`]
               ); // redirection
             } else {
-              this.loginMessage = INVALID_LOGIN_MESSAGE;
+              this.loginMessage = LoginUIComponent.INVALID_LOGIN_MESSAGE;
             }
           }
         )
         .catch(
           error => {
-            this.loginMessage = LOGIN_ERROR_MESSAGE;
+            this.loginMessage = LoginUIComponent.LOGIN_ERROR_MESSAGE;
             console.error('login error ', error);
           }
         );  // unable to connect display a message
