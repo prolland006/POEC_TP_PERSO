@@ -1,6 +1,6 @@
 <div class="card-container">
-  <h1 x-large class="sample-content">User account creation</h1>
-  <input type="text" name="login" placeholder="login" [(ngModel)]="login">
+  <h1 x-large class="sample-content">User Signup</h1>
+  <input type="text" name="login" placeholder="login(email)" [(ngModel)]="login">
   <input type="text" name="password" placeholder="password" [(ngModel)]="password">
   <button name="signupButton" (click)="onSignup(login,password)">Sign up</button>
   <span>{{ signupMessage }}</span>
