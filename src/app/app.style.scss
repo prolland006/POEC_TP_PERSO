@@ -20,6 +20,10 @@ div.card-container{
   padding-right: 70px;
 }
 
+div.card-container h3 {
+  color: #9e9e9e;
+}
+
 
 div.mdl-layout__header-row nav.mdl-navigation {
   padding-left: 70px;
@@ -58,9 +62,12 @@ color: #33D3FF;
 }
 
 
+
 ul.mdl-mega-footer__link-list li:hover{
   color: white;
 }
+
+
 
 @media(max-width: 600px) {
   div.mdl-layout__header-row nav.mdl-navigation {
@@ -68,10 +75,11 @@ ul.mdl-mega-footer__link-list li:hover{
   }
 }
 
+
+
 @media(min-width: 600px) {
 div.mdl-layout__drawer-button{
   display: none;
 }
 
   }
-
