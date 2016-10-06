@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Image = mongoose.model('Image');
 const User = mongoose.model('User');
 const imageStore = require('../services/image-store');
-// const isOwnerMiddleware = require('../middleware/is-owner-middleware');
+const isOwnerMiddleware = require('../middleware/is-owner-middleware');
 // const isLoggedMiddleware = require('../middleware/is-logged-middleware');
 
 module.exports.defineRoutes = function (router) {
@@ -11,7 +11,7 @@ module.exports.defineRoutes = function (router) {
   /**
    * get imagelist from a userId
    */
-  router.get('/users/:userId/images', function (req, res, next) {
+  router.get('/users/:userId/images', isOwnerMiddleware, function (req, res, next) {
     Image.findByUser(req.params.userId, (err, imageList) => {
       let imagePromiseList;
       if (err) return next(err);
@@ -30,11 +30,17 @@ module.exports.defineRoutes = function (router) {
     // });
   });
 
-  router.post('/users/:userId/images', function (req, res) {
+  router.post('/users/:userId/images', isOwnerMiddleware, function (req, res) {
 
     /** enregistre l'image et renvoi l'ID */
-    imageStore.saveImage({userId: req.params.userId, title: req.body.title, imageData: req.body.imageData});
-    res.send();
+    imageStore.saveImage({userId: req.params.userId, title: req.body.title, imageData: req.body.imageData})
+      .then(id => {
+        if (id) {
+          return res.sendStatus(200);
+        }
+        res.sendStatus(500);
+      })
+      .catch(err => res.sendStatus(500))
   });
 
 };

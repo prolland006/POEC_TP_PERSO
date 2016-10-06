@@ -12,6 +12,9 @@ module.exports.defineRoutes = function (router) {
 
     User.getToken({login: req.body.login, password: req.body.password}, (err, userCredential) => {
       if (err) {
+        return res.send(500);
+      }
+      if (!userCredential) {
         return res.send(404);
       }
       res.setHeader('Content-Type', 'application/json');
