@@ -5,7 +5,7 @@ let imageSchema = new Schema({
   type: String,
   title: String,
   description: String,
-  userId: Number,
+  userId: String,
   albums: Array
 });
 

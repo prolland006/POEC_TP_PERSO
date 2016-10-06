@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 function parseToken(req) {
-  if (req && req.headers && req.headers['Authorization']) {
-    return req.headers['Authorization'];
+  if (req && req.header && req.header('Authorization')) {
+    return req.header('Authorization');
   }
   return null;
 }

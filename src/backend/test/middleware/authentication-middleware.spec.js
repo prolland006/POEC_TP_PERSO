@@ -16,7 +16,7 @@ describe('AuthenticationMiddleware', () => {
   });
 
   it('should put user in request if token is defined and valid', (done) => {
-    let req = {'headers': {'Authorization': '123456789'}};
+    let req = {header: ((param) => {if (param === 'Authorization') return '123456789';})};
     let res = {};
 
     User.checkToken = jasmine.createSpy('checkToken').andCallFake((token, callback) => {
@@ -44,7 +44,7 @@ describe('AuthenticationMiddleware', () => {
   });
 
   it('should call next if token doesn\'t exist', (done) => {
-    let req = {'headers': {'Authorization': '123456789'}};
+    let req = {header: ((param) => {if (param === 'Authorization') return '123456789';})};
     let res = {};
 
     User.checkToken = jasmine.createSpy('checkToken').andCallFake((token, callback) => {

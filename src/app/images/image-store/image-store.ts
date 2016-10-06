@@ -10,11 +10,12 @@ export class ImageStore {
   }
 
   getImagesFromUser(userId: string): Observable<Image[]> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': window.localStorage.getItem('TOKEN')
+    });
     let options = new RequestOptions({ headers: headers });
-    if (window.localStorage.getItem('TOKEN')) {
-      headers['Authorization'] = window.localStorage.getItem('TOKEN');
-    }
+
     return this.http.get(`/users/${userId}/images`, options)
       .map(data => data.json())
       .map(imageDataList => imageDataList.map(imageData => new Image(imageData)));

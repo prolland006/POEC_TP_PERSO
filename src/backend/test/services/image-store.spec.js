@@ -1,7 +1,6 @@
 const app = require('../../app');
 const mongoose = require('mongoose');
 const Image = mongoose.model('Image');
-const request = require('supertest');
 const fs = require('fs');
 
 describe('Image-store service', () => {
@@ -30,7 +29,7 @@ describe('Image-store service', () => {
       .then(id => {
         Image.find({_id: id}, (err, result) => {
           expect(result.length).toEqual(1);
-          expect(result[0].userId).toEqual(42);
+          expect(result[0].userId).toEqual('42');
           expect(result[0].title).toEqual('lel');
 
           //TODO check file existence
@@ -40,6 +39,7 @@ describe('Image-store service', () => {
             expect(err).toEqual(null); //the file exist
 
             fs.unlink(filePathAndName, (err) => {
+              expect(err).toBeNull();
               done();
             });
 

@@ -4,7 +4,7 @@ const User = mongoose.model('User');
 
 module.exports.defineRoutes = function (router) {
 
-  router.post('/login', function (req, res, next) {
+  router.post('/login', function (req, res) {
 
     if (!req.body || !req.body.login || !req.body.password) {
       return res.send(404);
@@ -15,6 +15,7 @@ module.exports.defineRoutes = function (router) {
         return res.send(404);
       }
       res.setHeader('Content-Type', 'application/json');
+      res.status(200);
       res.send(userCredential);
     });
 
