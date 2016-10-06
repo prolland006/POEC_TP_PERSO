@@ -4,7 +4,7 @@ import {ImageUploadComponent} from "./images/image-upload/image-upload.component
 import {LoginUIComponent} from './authentication/login-ui.component';
 
 export const ROUTES: Routes = [
-  {path: '', component: ImageListComponent},
+  {path: '', component: LoginUIComponent},
   {path: 'login', component: LoginUIComponent},
   {path: 'images/:userId', component: ImageListComponent},
   {path: 'image-upload/:userId', component: ImageUploadComponent}
