@@ -1,7 +1,7 @@
 import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
 import { ImageModule } from '../../../images/image.module';
 import { ImageListComponent } from '../../../images/image-list/image-list.component';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { ImageStore } from '../../../images/image-store/image-store';
 
@@ -17,7 +17,12 @@ describe('ImageListComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {}
+        },
+        {
+          provide: Router,
+          useValue: { }
         }
+
       ]
     }).compileComponents();
 

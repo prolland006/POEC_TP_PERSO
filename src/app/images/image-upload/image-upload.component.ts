@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Image } from '../image';
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AuthenticatedHttp } from '../../common/authenticated-http.service'
 
 @Component({
@@ -38,7 +38,7 @@ export class ImageUploadComponent {
   userId: string;
   message: string;
 
-  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute) {
+  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute, private router: Router) {
   }
 
   handleInputChange(event) {
@@ -79,11 +79,11 @@ export class ImageUploadComponent {
         this.http.post(`/users/${userId}/images`, JSON.stringify(image), options)
           .toPromise()
       )
-//       .then((response) => new Image(response.json()))
-//      .then((response) => { })
       .catch(error => {
-        console.error('uploadImage error ', error);
-        this.message = 'picture upload unable (imagesize ?) !';
+        if (error.status=='401') { //unauthorized
+          //redirection
+          this.router.navigate(['login']);
+        }
       }); // Promise<Image>
   };
 
