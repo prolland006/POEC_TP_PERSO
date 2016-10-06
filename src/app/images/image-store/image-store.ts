@@ -1,12 +1,13 @@
-import {Http, Headers, RequestOptions} from '@angular/http';
+import { Headers, RequestOptions} from '@angular/http';
 import { Image } from '../image';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { AuthenticatedHttp } from '../../common/authenticated-http.service'
 
 @Injectable()
 export class ImageStore {
 
-  constructor(private http: Http) {
+  constructor(private http: AuthenticatedHttp) {
   }
 
   getImagesFromUser(userId: string): Observable<Image[]> {

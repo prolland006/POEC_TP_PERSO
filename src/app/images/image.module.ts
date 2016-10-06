@@ -21,7 +21,7 @@ import { ImageStore } from './image-store/image-store';
     ImageUploadComponent
   ],
   imports: [
-    CommonHelper.commonModuleList()
+    CommonHelper.commonModuleList(),
   ],
   providers: [
     ImageStore
