@@ -5,7 +5,7 @@ import { SignupService } from '../../../app/signup/signup.service';
 import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { SignupModule } from '../../signup/signup.module';
 
-describe('SignupTest', () => {
+describe('Signup', () => {
 
   beforeEach(() => {
 
@@ -25,7 +25,7 @@ describe('SignupTest', () => {
     }).compileComponents();
   });
 
-  it('should return and store userId & token in localStorage if success',
+  it('should return true if success',
     fakeAsync(inject([SignupService, MockBackend], (signupService, mockBackend) => {
 
       mockBackend.connections.subscribe(connection => {
@@ -40,24 +40,11 @@ describe('SignupTest', () => {
       /* Run. */
       let signupUser = signupService.signup({ login: 'foo@bar.com', password: 'secret' });
 
-      tick();
+      tick();   /* Trigger async stuff. */
 
       /* Test. */
       signupUser.then((response) => {
-        // console.log('signupUser ', response);
-
-        // recover user_id and token from local storage
-        let localStorage_user_id = window.localStorage.getItem('USER_ID');
-        let localStorage_token   = window.localStorage.getItem('TOKEN');
-        // console.log('signupTest receives resp/id/token ' + response + "/" + localStorage_user_id + "/" + localStorage_token);
-
         expect(response).toBeTruthy();
-        expect(localStorage_user_id).toEqual('45');
-        expect(localStorage_token).toEqual('fake-token-1');
-
-        /* Remove this local storage */
-        window.localStorage.removeItem('USER_ID');
-        window.localStorage.removeItem('TOKEN');
       });
     }))
   );
@@ -77,7 +64,7 @@ describe('SignupTest', () => {
       /* Run. */
       let signupUser = signupService.signup({ login: 'foo@bar.com', password: 'secret' });
 
-      tick();
+      tick();   /* Trigger async stuff. */
 
       /* Test. */
       signupUser.then((response) => {

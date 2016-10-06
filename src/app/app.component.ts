@@ -32,6 +32,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
           My Images
         </a>
       </span>
+      |
+      <span>
+        <a [routerLink]=" ['./signup'] ">
+          Sign up
+        </a>
+      </span>      
     </nav>
 
     <main>
