@@ -1,7 +1,7 @@
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-import {MaterialModule} from "@angular/material";
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 
 export class CommonHelper {
 
@@ -11,7 +11,7 @@ export class CommonHelper {
       FormsModule,
       HttpModule,
       MaterialModule.forRoot()
-    ]
+    ];
   }
 
 }

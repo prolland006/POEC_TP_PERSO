@@ -42,8 +42,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 </header>
 
-
-
     <div class="mdl-layout__drawer">
     <nav class="mdl-navigation">
       <span>

@@ -1,9 +1,9 @@
-import {TestBed, async, inject, fakeAsync} from "@angular/core/testing";
-import {ImageModule} from "../../../images/image.module";
-import {ImageListComponent} from "../../../images/image-list/image-list.component";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {ImageStore} from "../../../images/image-store/image-store";
+import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
+import { ImageModule } from '../../../images/image.module';
+import { ImageListComponent } from '../../../images/image-list/image-list.component';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ImageStore } from '../../../images/image-store/image-store';
 
 describe('ImageListComponent', () => {
 
@@ -23,7 +23,8 @@ describe('ImageListComponent', () => {
 
   }));
 
-  it('should display image list', fakeAsync(inject([ActivatedRoute, ImageStore], (activatedRoute, imageStore) => {
+  it('should display image list', fakeAsync(inject([ActivatedRoute, ImageStore],
+      (activatedRoute, imageStore) => {
 
     let element;
     let fixture;

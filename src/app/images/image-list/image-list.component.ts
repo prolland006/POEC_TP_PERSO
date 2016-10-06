@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {ImageStore} from "../image-store/image-store";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ImageStore } from '../image-store/image-store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   // The selector is what angular internally uses
@@ -17,7 +17,7 @@ export class ImageListComponent implements OnInit {
   constructor (
     private imageStore: ImageStore,
     private route: ActivatedRoute,
-  ){}
+  ) { }
 
   imageList;
 
@@ -31,7 +31,7 @@ export class ImageListComponent implements OnInit {
   getImages(userId) {
     this.imageStore.getImagesFromUser(userId)
       .subscribe(imageList => {
-        this.imageList = imageList
+        this.imageList = imageList;
       });
   };
 

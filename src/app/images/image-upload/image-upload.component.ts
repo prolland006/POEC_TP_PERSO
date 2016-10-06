@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Http} from "@angular/http";
-import {Image} from "../image";
+import { Component, Input, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import { Image } from '../image';
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   // The selector is what angular internally uses
@@ -12,10 +12,10 @@ import {ActivatedRoute} from "@angular/router";
   selector: 'image-upload',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
-    //Title
+    // Title
   ],
   // Our list of styles in our component. We may add more to compose many styles together
-  //styleUrls: [ './upload-api.style.css' ],
+  // styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./image-upload.html')
 })
@@ -32,7 +32,7 @@ export class ImageUploadComponent {
   // }
 
   // Way 2: select file throught button
-  loaded: boolean =false;
+  loaded: boolean = false;
   imageSrc: string = '';
   imageName: string = '';
   userId: string;
@@ -42,10 +42,10 @@ export class ImageUploadComponent {
 
   handleInputChange(event) {
 
-    var file = event.target.files[0];   // file selection
+    let file = event.target.files[0];   // file selection
 
-    var pattern = /image-*/;
-    var reader = new FileReader();
+    let pattern = /image-*/;
+    let reader = new FileReader();
 
     if (!file.type.match(pattern)) {
       alert('invalid format');
@@ -58,7 +58,7 @@ export class ImageUploadComponent {
     reader.readAsDataURL(file);
   }
 
-  _handleReaderLoaded(event){
+  _handleReaderLoaded(event) {
 
     this.imageSrc = event.target.result;
     this.loaded = true;
@@ -75,9 +75,12 @@ export class ImageUploadComponent {
     let options = new RequestOptions({ headers: headers });
 
     return this._userId()
-      .then((userId) => this.http.post(`/users/${userId}/images`, JSON.stringify(image), options).toPromise())
-//       .then((response) => new Image(response.json()))
-       .then((response) => { console.log("uploadImage ", response)} )
+      .then((userId) => this.http.post(`/users/${userId}/images`,
+          JSON.stringify(image), options).toPromise())
+// .then((response) => new Image(response.json()))
+       .then((response) => {
+         console.log('uploadImage ', response);
+       })
        .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
 
   };
