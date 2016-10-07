@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Http} from "@angular/http";
-import {Image} from "../image";
+import {Component, OnInit} from '@angular/core';
+import { Image } from '../image';
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
+import { AuthenticatedHttp } from '../../common/authenticated-http.service'
 
 @Component({
   // The selector is what angular internally uses
@@ -12,15 +12,14 @@ import {ActivatedRoute} from "@angular/router";
   selector: 'image-upload',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
-    //Title
+    // Title
   ],
   // Our list of styles in our component. We may add more to compose many styles together
-  //styleUrls: [ './upload-api.style.css' ],
+  // styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  template: require('./image-upload.html')
+  template: <string>require('./image-upload.html')
 })
-
-export class ImageUploadComponent {
+export class ImageUploadComponent implements OnInit {
 
 
   // Way 1: take filename and path from the form
@@ -32,20 +31,21 @@ export class ImageUploadComponent {
   // }
 
   // Way 2: select file throught button
-  loaded: boolean =false;
+  loaded: boolean = false;
   imageSrc: string = '';
   imageName: string = '';
   userId: string;
+  message: string;
 
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute, private router: Router) {
   }
 
   handleInputChange(event) {
 
-    var file = event.target.files[0];   // file selection
+    let file = event.target.files[0];   // file selection
 
-    var pattern = /image-*/;
-    var reader = new FileReader();
+    let pattern = /image-*/;
+    let reader = new FileReader();
 
     if (!file.type.match(pattern)) {
       alert('invalid format');
@@ -54,11 +54,11 @@ export class ImageUploadComponent {
 
     this.imageName = file.name;
 
-    reader.onload = (event) => this._handleReaderLoaded(event);
+    reader.onload = (loadEvent) => this._handleReaderLoaded(loadEvent);
     reader.readAsDataURL(file);
   }
 
-  _handleReaderLoaded(event){
+  _handleReaderLoaded(event) {
 
     this.imageSrc = event.target.result;
     this.loaded = true;
@@ -73,13 +73,17 @@ export class ImageUploadComponent {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-
     return this._userId()
-      .then((userId) => this.http.post(`/users/${userId}/images`, JSON.stringify(image), options).toPromise())
-//       .then((response) => new Image(response.json()))
-       .then((response) => { console.log("uploadImage ", response)} )
-       .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
-
+      .then((userId) =>
+        this.http.post(`/users/${userId}/images`, JSON.stringify(image), options)
+          .toPromise()
+      )
+      .catch(error => {
+        if (error.status=='401') { //unauthorized
+          //redirection
+          this.router.navigate(['login']);
+        }
+      }); // Promise<Image>
   };
 
   private _userId() {
@@ -90,5 +94,13 @@ export class ImageUploadComponent {
       .toPromise();
 
   }
+
+  ngOnInit() {
+    if (!window.localStorage.getItem('TOKEN')) {
+    //redirection
+      this.router.navigate(['login']);
+    }
+  }
+
 }
 

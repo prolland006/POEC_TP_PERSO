@@ -1,15 +1,15 @@
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import {AppCommonModule} from "./common/common.module";
 
 export class CommonHelper {
 
   static commonModuleList() {
     return [
       BrowserModule,
-      FormsModule,
-      HttpModule
-    ]
-  }
+      AppCommonModule,
+      FormsModule
+    ];
+  };
 
 }

@@ -25,7 +25,7 @@ module.exports = function(app, config) {
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({'limit': '5mb'}));
   app.use(bodyParser.urlencoded({
     extended: true
   }));
@@ -34,7 +34,7 @@ module.exports = function(app, config) {
   app.use(express.static(path.join(config.root, '../../dist')));
   app.use(methodOverride());
 
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  var controllers = glob.sync(config.root + '/app/controllers/api.js');
   controllers.forEach(function (controller) {
     require(controller)(app);
   });

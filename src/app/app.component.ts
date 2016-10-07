@@ -1,7 +1,8 @@
 /*
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation } from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {LoginService} from "./authentication/login.service";
 
 /*
  * AppComponent Component
@@ -17,20 +18,23 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <nav>
       <span>
         <a [routerLink]=" ['./'] ">
-          Index
+          Home
         </a>
       </span>
-      |
-      <span>
-        <a [routerLink]=" ['./image-upload/42'] ">
-          Upload
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./images/42'] ">
-          My Images
-        </a>
+      
+      <span *ngIf=userId>
+        |
+        <span>
+          <a [routerLink]=" ['./image-upload/'+userId] ">
+            Upload
+          </a>
+        </span>
+        |
+        <span>
+          <a [routerLink]=" ['./images/'+userId] ">
+            My Images
+          </a>
+        </span>
       </span>
     </nav>
 
@@ -39,4 +43,20 @@ import { Component, ViewEncapsulation } from '@angular/core';
     </main>
   `
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  // isLoggedIn : boolean;
+  userId: string;
+
+  constructor(private loginService: LoginService) {
+  }
+
+  ngOnInit() {
+    this.userId = window.localStorage.getItem('USER_ID');
+    this.loginService.setLoginStatus.subscribe(isLoggedIn => this.loginEventHandler())
+  }
+
+  private loginEventHandler() {
+    this.userId = window.localStorage.getItem('USER_ID');
+
+  }
+}

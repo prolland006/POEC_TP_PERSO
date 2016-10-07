@@ -3,7 +3,7 @@ const Image = mongoose.model('Image');
 const path = require('path');
 const fs = require('fs');
 
-const UPLOAD_DIRECTORY='../upload/';
+const UPLOAD_DIRECTORY = '../../../../dist/upload/';
 const TYPE_LOCAL = 'local';
 
 class ImageStore {
@@ -11,46 +11,31 @@ class ImageStore {
   constructor() {
   }
 
-  // collection Images:
-  // id, type, title, description, user_id, albums
-  //
-  // collection Users:
-  // user_id, login, password, email (edited)
-
-
-  // {user_id:req.params.user_id, title:req.body.title, imageData:req.body.imageData}
-//  saveImage(user_id, title, imageData) {
-
-
   /**
    * enregistre l'image et renvoi une Promise contenant l'ID
    */
-   saveImage(imageObject) {
-      return new Promise((resolve, reject) => {
-        console.log("saveImage ", imageObject.userId, imageObject.title);
+  saveImage(imageObject) {
+    return new Promise((resolve, reject) => {
+      // TODO for type, description, albums
+      let img = new Image({
+        type: TYPE_LOCAL,
+        title: imageObject.title,
+        description: '',
+        userId: imageObject.userId,
+        albums: []
+      });
 
-        // TODO for type, description, albums
-        let img = new Image({
-          type: TYPE_LOCAL,
-          title: imageObject.title,
-          description: '',
-          user_id: imageObject.userId,
-          albums: []
-        });
+      img.save((err) => {
 
-        let that = this;
-        img.save(function (err, result) {
+        if (err) {
+          reject(err);
+        }
 
-          if (err) {
-            console.log(err);
-            return next(err);
-          }
-
-          that.saveOnDisk(img._id, imageObject.imageData)
-            .then(data => resolve(img._id))
-            .catch(err => reject(err));
-        });
-      })
+        this.saveOnDisk(img._id, imageObject.imageData)
+          .then(data => resolve(img._id))
+          .catch(err => reject(err));
+      });
+    })
   }
 
   decodeBase64Image(dataString) {
@@ -73,37 +58,53 @@ class ImageStore {
    * @param imgData
    * @returns {Promise}
    */
-  saveOnDisk(id , imgData) {
-    let filename= UPLOAD_DIRECTORY+id+'.jpg';
+  saveOnDisk(id, imgData) {
+    let filename = UPLOAD_DIRECTORY + id + '.jpg';
 
     let path = require('path');
     let filePath = path.join(__dirname, filename);
 
-    console.log("write file ", filePath);
+    let imageBuffer = this.decodeBase64Image(imgData);
 
-    var imageBuffer = this.decodeBase64Image(imgData);
-    console.log(imageBuffer);
-
-    return new Promise(function(resolve,reject) {
-      fs.writeFile(filePath, imageBuffer.data, function(err)  {
+    return new Promise(function (resolve, reject) {
+      fs.stat(path.join(__dirname, UPLOAD_DIRECTORY), (err) => {
         if (err) {
-          reject(err);
+          fs.mkdir(path.join(__dirname, UPLOAD_DIRECTORY), (err) => {
+            if (err) {
+              reject(err);
+            }
+            fs.writeFile(filePath, imageBuffer.data, function (err) {
+              if (err) {
+                reject(err);
+              }
+              else {
+                resolve(imageBuffer.data);
+              }
+            });
+          });
         }
         else {
-          resolve(imageBuffer.data);
+          fs.writeFile(filePath, imageBuffer.data, function (err) {
+            if (err) {
+              reject(err);
+            }
+            else {
+              resolve(imageBuffer.data);
+            }
+          });
         }
       });
     });
-
   }
 
   getImageUrl(id, type) {
     if (type === TYPE_LOCAL) {
-      return Promise.resolve('/images/' + path.join(id + ".jpg"));
+      return Promise.resolve('/upload/' + path.join(id + ".jpg"));
     }
     return Promise.resolve();
   }
 
 }
 
-module.exports = new ImageStore();
+module
+  .exports = new ImageStore();
