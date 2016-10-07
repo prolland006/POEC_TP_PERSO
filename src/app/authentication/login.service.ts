@@ -5,7 +5,7 @@ import {Injectable, Input, EventEmitter, Output} from '@angular/core';
 export class LoginService {
 
   // isLoggedIn: boolean = false;
-  @Output() setLoginStatus: EventEmitter<boolean> = new EventEmitter();
+  @Output() setLoginStatus: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: Http) {}
 
