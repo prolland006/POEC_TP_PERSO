@@ -1,9 +1,9 @@
 /*
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation, OnInit, ComponentMetadataType } from '@angular/core';
-import { LoginService } from './authentication/login.service';
-import { TokenService } from './authentication/token.service';
+import {Component, ViewEncapsulation, OnInit, ComponentMetadataType} from '@angular/core';
+import {LoginService} from './authentication/login.service';
+import {TokenService} from './authentication/token.service';
 
 /*
  * AppComponent Component
@@ -54,7 +54,7 @@ import { TokenService } from './authentication/token.service';
 
 </header>
 
-    <div class="mdl-layout__drawer">
+ <div class="mdl-layout__drawer">
     <nav class="mdl-navigation">
       <span>
         <a class="mdl-navigation__link" [routerLink]=" ['./'] ">
@@ -83,12 +83,7 @@ import { TokenService } from './authentication/token.service';
 
 
 <footer class="mdl-mega-footer">
-  <div class="mdl-mega-footer__bottom-section">
-    <ul class="mdl-mega-footer__link-list">
-      <li><a href="#">Création de compte</a></li>
-      <li><a href="#">Connexion</a></li>
-    </ul>
-  </div>
+  
 </footer>
 
 </div>
