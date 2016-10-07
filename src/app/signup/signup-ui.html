@@ -1,0 +1,9 @@
+<form
+  (submit)="onSignup(login, password)"
+  class="card-container">
+  <h1 x-large class="sample-content">User Signup</h1>
+  <input class="signup-login" type="text" name="login" placeholder="login(email)" [(ngModel)]="login">
+  <input class="signup-password" type="text" name="password" placeholder="password" [(ngModel)]="password">
+  <button type="submit" name="signupButton">Sign up</button>
+  <span class="tp-message">{{ signupMessage }}</span>
+</form>

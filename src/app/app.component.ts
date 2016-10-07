@@ -21,7 +21,14 @@ import {LoginService} from "./authentication/login.service";
           Home
         </a>
       </span>
-      
+      <span *ngIf=!userId>
+      |
+        <span>
+          <a [routerLink]=" ['./signup'] ">
+            Sign up
+          </a>
+        </span>
+      </span>
       <span *ngIf=userId>
         |
         <span>
