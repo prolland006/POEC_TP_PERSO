@@ -1,11 +1,11 @@
-
+<div *ngIf=!userId>
   <form
     (submit)="onLogin(login, password)"
     class="card-container">
-    <h1 x-large class="sample-content">Login</h1>
-    <input class="input-login" type="text" name="login" placeholder="login" [(ngModel)]="login">
-    <input class="input-password" type="text" name="password" placeholder="password" [(ngModel)]="password">
-    <button type="submit" name="loginButton">Login</button>
-    <span class="tp-message">{{ loginMessage }}</span>
+      <h1 x-large class="sample-content">Login</h1>
+      <input class="input-login" type="text" name="login" placeholder="login" [(ngModel)]="login">
+      <input class="input-password" type="text" name="password" placeholder="password" [(ngModel)]="password">
+      <button type="submit" name="loginButton">Login</button>
+      <span class="tp-message">{{ loginMessage }}</span>
   </form>
-
+</div>

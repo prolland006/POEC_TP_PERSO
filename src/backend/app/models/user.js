@@ -58,4 +58,31 @@ userSchema.statics.checkToken = function (token, callback) {
   });
 };
 
+// Verify whether an user named "login" already exists in DB
+userSchema.statics.checkExistingUser = function (login, callback) {
+
+  this.findOne({login: login}, (err, user) => {
+    if (err) {
+      callback(err, false);
+    }
+    if (user) {
+      return callback(null, user);  // user does exist in DB
+    }
+    return callback(null, null);    // user does not exist in DB
+  });
+};
+
+// Insert a new user to DB
+userSchema.statics.insertUser = function (credentials, callback) {
+  let encryptedPassword = crypto.createHash('sha256').update(credentials.password).digest('base64');
+
+  this.insertMany([{login: credentials.login, password: encryptedPassword}], (err, user) => {
+    if (err) {
+      return callback(err, null);
+    }
+    return callback(null, user[0]);   // user is an array of one element
+  })
+};
+
+
 mongoose.model('User', userSchema);

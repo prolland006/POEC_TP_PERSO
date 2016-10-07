@@ -12,6 +12,7 @@ import { ImageModule } from './images/image.module';
 import { CommonHelper } from './common-helper';
 import { LoginModule } from './authentication/login.module';
 import {MaterialModule} from "@angular/material";
+import { SignupModule } from './signup/signup.module';
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -26,6 +27,7 @@ import {MaterialModule} from "@angular/material";
     ImageModule,
     LoginModule,
     MaterialModule.forRoot(),
+    SignupModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

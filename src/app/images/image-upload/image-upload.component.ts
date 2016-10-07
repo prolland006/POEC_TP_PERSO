@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Image } from '../image';
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AuthenticatedHttp } from '../../common/authenticated-http.service'
 
 @Component({
@@ -17,10 +17,9 @@ import { AuthenticatedHttp } from '../../common/authenticated-http.service'
   // Our list of styles in our component. We may add more to compose many styles together
   // styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  template: require('./image-upload.html')
+  template: <string>require('./image-upload.html')
 })
-
-export class ImageUploadComponent {
+export class ImageUploadComponent implements OnInit {
 
 
   // Way 1: take filename and path from the form
@@ -38,7 +37,7 @@ export class ImageUploadComponent {
   userId: string;
   message: string;
 
-  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute) {
+  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute, private router: Router) {
   }
 
   handleInputChange(event) {
@@ -79,11 +78,11 @@ export class ImageUploadComponent {
         this.http.post(`/users/${userId}/images`, JSON.stringify(image), options)
           .toPromise()
       )
-//       .then((response) => new Image(response.json()))
-//      .then((response) => { })
       .catch(error => {
-        console.error('uploadImage error ', error);
-        this.message = 'picture upload unable (imagesize ?) !';
+        if (error.status=='401') { //unauthorized
+          //redirection
+          this.router.navigate(['login']);
+        }
       }); // Promise<Image>
   };
 
@@ -95,5 +94,13 @@ export class ImageUploadComponent {
       .toPromise();
 
   }
+
+  ngOnInit() {
+    if (!window.localStorage.getItem('TOKEN')) {
+    //redirection
+      this.router.navigate(['login']);
+    }
+  }
+
 }
 
