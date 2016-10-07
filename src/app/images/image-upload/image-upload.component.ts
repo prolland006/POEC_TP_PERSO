@@ -17,9 +17,8 @@ import { AuthenticatedHttp } from '../../common/authenticated-http.service'
   // Our list of styles in our component. We may add more to compose many styles together
   // styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  template: require('./image-upload.html')
+  template: <string>require('./image-upload.html')
 })
-
 export class ImageUploadComponent implements OnInit {
 
 

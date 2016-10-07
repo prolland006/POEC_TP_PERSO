@@ -35,6 +35,8 @@ describe('LoginTest', () => {
   it('Should receive error message if login/password not correct',
     fakeAsync(inject([LoginService, MockBackend], (loginService, mockBackend) => {
 
+      let connected;
+
       mockBackend.connections.subscribe(connection => {
         expect(connection.request.method).toEqual(RequestMethod.Post);
         expect(connection.request.url).toEqual('/login');
@@ -56,9 +58,11 @@ describe('LoginTest', () => {
 //         });
       tick();
 
-      loginUser.then(connected => {
-        expect(connected).toBeFalsy();
-      });
+      loginUser.then (_connected => connected = _connected);
+
+      tick();
+
+      expect(connected).toEqual(false);
 
     })));
 
