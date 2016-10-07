@@ -33,7 +33,7 @@ describe('Signup', () => {
         expect(connection.request.url).toEqual('/signup');
 
         connection.mockRespond(new Response(new ResponseOptions(
-          {status: 200, body: JSON.stringify({ userId: 45, token: 'fake-token-1' })}
+          {status: 201, body: JSON.stringify({ userId: 45, token: 'fake-token-1' })}
         )));
       });
 

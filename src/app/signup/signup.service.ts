@@ -1,6 +1,5 @@
-
-import { Http, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
+import {Http, Headers} from '@angular/http';
+import {Injectable} from '@angular/core';
 
 // export class LoggedUser {
 //   user_id: string = '';
@@ -12,9 +11,10 @@ export class SignupService {
   // isLoggedin: boolean;
   // token: string;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) {
+  }
 
-  signup( login: string, password: string ): Promise<boolean> {
+  signup(login: string, password: string): Promise<boolean> {
 
     // TODO check login and password validity
     // if (this.checkLoginValidity(login) == false) {return false;};
@@ -25,18 +25,17 @@ export class SignupService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post('/signup', JSON.stringify({ login, password }), { headers })
+    return this.http.post('/signup', JSON.stringify({login, password}), {headers})
       .toPromise() // Promise<Response>
       // Response{_body: '', status: 200, ok: true, statusText: null, headers: null, type: null, url: null}
       .then((response) => {
 
         // console.log('Signup result ', response);
 
-        if(response.status === 201) {
+        if (response.status === 201) {
           return true;
-        } else {
-          return false;
         }
+        return false;
       })
       .catch(error => {
         console.error('SignupService error ', error);
