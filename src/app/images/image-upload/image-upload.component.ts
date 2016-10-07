@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Image } from '../image';
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
@@ -20,7 +20,7 @@ import { AuthenticatedHttp } from '../../common/authenticated-http.service'
   template: require('./image-upload.html')
 })
 
-export class ImageUploadComponent {
+export class ImageUploadComponent implements OnInit {
 
 
   // Way 1: take filename and path from the form
@@ -95,5 +95,13 @@ export class ImageUploadComponent {
       .toPromise();
 
   }
+
+  ngOnInit() {
+    if (!window.localStorage.getItem('TOKEN')) {
+    //redirection
+      this.router.navigate(['login']);
+    }
+  }
+
 }
 
