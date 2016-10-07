@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { Image } from '../image';
+import {Image} from '../image';
 import 'rxjs/add/operator/toPromise';
-import { Headers, RequestOptions } from '@angular/http';
+import {Headers, RequestOptions} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import { AuthenticatedHttp } from '../../common/authenticated-http.service'
+import {AuthenticatedHttp} from '../../common/authenticated-http.service'
+import {TokenService} from '../../authentication/token.service';
 
 @Component({
   // The selector is what angular internally uses
@@ -37,8 +38,10 @@ export class ImageUploadComponent implements OnInit {
   userId: string;
   message: string;
 
-  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(private http: AuthenticatedHttp,
+              private route: ActivatedRoute,
+              private router: Router,
+              private tokenService: TokenService) {}
 
   handleInputChange(event) {
 
@@ -71,15 +74,15 @@ export class ImageUploadComponent implements OnInit {
 
   uploadImage(image: Image): Promise<any> {
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
     return this._userId()
       .then((userId) =>
         this.http.post(`/users/${userId}/images`, JSON.stringify(image), options)
           .toPromise()
       )
       .catch(error => {
-        if (error.status=='401') { //unauthorized
+        if (error.status == '401') { //unauthorized
           //redirection
           this.router.navigate(['login']);
         }
@@ -96,8 +99,8 @@ export class ImageUploadComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!window.localStorage.getItem('TOKEN')) {
-    //redirection
+    if (!this.tokenService.getToken()) {
+      //redirection
       this.router.navigate(['login']);
     }
   }

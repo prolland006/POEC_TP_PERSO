@@ -1,13 +1,13 @@
 import { MockBackend } from '@angular/http/testing';
 import { Http, BaseRequestOptions, ResponseOptions, Response, RequestMethod } from '@angular/http';
-import { LoginService } from '../../../app/authentication/login.service';
 import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { LoginModule } from '../../authentication/login.module';
+import { LoginService } from '../../authentication/login.service';
 
 describe('LoginTest', () => {
 
   let _reset = () => {
-    window.localStorage.clear();
+   window.localStorage.clear();
   };
 
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('LoginTest', () => {
   beforeEach(_reset);
   afterEach(_reset);
 
-  it('Should receive error message if login/password not correct',
+  it('Should receive error message if login password not correct',
     fakeAsync(inject([LoginService, MockBackend], (loginService, mockBackend) => {
 
       let connected;
@@ -64,6 +64,8 @@ describe('LoginTest', () => {
 
       expect(connected).toEqual(false);
 
+      tick();
+
     })));
 
   it('should return userId and token',
@@ -88,6 +90,8 @@ describe('LoginTest', () => {
       loginUser.then(connected => {
         expect(connected).toBeTruthy();
       });
+
+      tick();
 
     })));
 
@@ -119,6 +123,8 @@ describe('LoginTest', () => {
       let userId = window.localStorage.getItem('USER_ID');
       expect(userToken).toEqual('fake-token-222');
       expect(userId).toEqual('43');
+
+      tick();
 
     })));
 

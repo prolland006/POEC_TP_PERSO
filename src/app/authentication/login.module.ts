@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonHelper } from '../common-helper';
 import { LoginService } from './login.service';
 import { LoginUIComponent } from './login-ui.component';
+import { TokenService } from './token.service';
 
 @NgModule({
   declarations: [
@@ -11,10 +12,11 @@ import { LoginUIComponent } from './login-ui.component';
     LoginUIComponent
   ],
   imports: [
-    CommonHelper.commonModuleList()
+    CommonHelper.childCommonModuleList()
   ],
   providers: [
-    LoginService
+    LoginService,
+    TokenService
   ]
 })
 export class LoginModule {

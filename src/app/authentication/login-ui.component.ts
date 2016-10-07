@@ -1,9 +1,9 @@
-import { Http } from '@angular/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentMetadataType } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { TokenService } from './token.service';
 
-@Component({
+@Component(<ComponentMetadataType>{
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
   // where, in this case, selector is the string 'home'
@@ -11,10 +11,7 @@ import { Router } from '@angular/router';
   // Our list of styles in our component. We may add more to compose many styles together
   styles: [require('./login-ui.css')],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  template: require('./login-ui.html'),
-
-  // redirection
-  providers: [/*ROUTER_PROVIDERS*/]
+  template: require('./login-ui.html')
 })
 export class LoginUIComponent implements OnInit {
 
@@ -26,13 +23,15 @@ export class LoginUIComponent implements OnInit {
   loginMessage: string;
   userId : string;
 
-  ngOnInit(): void {
-    this.userId = window.localStorage.getItem('USER_ID');
+  constructor (private loginService: LoginService, private router: Router, private tokenService: TokenService) {
+    this.loginMessage = '';
   }
 
-  constructor (private http: Http, private loginService: LoginService, private router: Router) {
-      this.loginMessage = '';
+  ngOnInit(): void {
+    this.userId = this.tokenService.getUserId();
   }
+
+
 
   onLogin(login: string, password: string) {
 
@@ -40,9 +39,9 @@ export class LoginUIComponent implements OnInit {
         .then(
           response => {
             if (response) {
-              this.userId = window.localStorage.getItem('USER_ID');
+              this.userId = this.tokenService.getUserId();
               this.router.navigate(
-                [`images/${window.localStorage.getItem('USER_ID')}`]
+                [`images/${this.tokenService.getUserId()}`]
               ); // redirection
             } else {
               this.loginMessage = LoginUIComponent.INVALID_LOGIN_MESSAGE;

@@ -1,7 +1,10 @@
 <div class="card-container">
-  <h1 x-large class="sample-content">My Images</h1>
+  <h3 x-large class="sample-content">Mes Images</h3>
   <!--<div *ngFor="let image of imageList">-->
-    <img *ngFor="let image of imageList" [src]="image.url | bypassSecurityTrustUrl">
+
+  <md-card>
+    <img class="image_list" *ngFor="let image of imageList" [src]="image.url | bypassSecurityTrustUrl">
+    </md-card>
   <!--</div>-->
 
 </div>

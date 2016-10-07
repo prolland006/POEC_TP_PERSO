@@ -43,7 +43,7 @@ import * as _ from 'lodash'
  *
  */
 
-// support NodeJS commonModuleList without type definitions
+// support NodeJS childCommonModuleList without type definitions
 declare module '*';
 
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin

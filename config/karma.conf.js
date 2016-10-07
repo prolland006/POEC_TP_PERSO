@@ -77,7 +77,7 @@ module.exports = function(config) {
      * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
      */
     browsers: [
-      'PhantomJS'
+      'Chrome'
     ],
 
     customLaunchers: {
@@ -92,6 +92,7 @@ module.exports = function(config) {
      * if true, Karma captures browsers, runs the tests and exits
      */
     singleRun: true
+
   };
 
   if (process.env.TRAVIS){

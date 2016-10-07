@@ -60,5 +60,5 @@ function requireAll(requireContext) {
   return requireContext.keys().map(requireContext);
 }
 
-// requires and returns all commonModuleList that match
+// requires and returns all childCommonModuleList that match
 var modules = requireAll(testContext);

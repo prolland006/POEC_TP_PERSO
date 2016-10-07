@@ -7,7 +7,6 @@ const isOwnerMiddleware = require('../middleware/is-owner-middleware');
 // const isLoggedMiddleware = require('../middleware/is-logged-middleware');
 
 module.exports.defineRoutes = function (router) {
-
   /**
    * get imagelist from a userId
    */
@@ -24,8 +23,21 @@ module.exports.defineRoutes = function (router) {
           });
       });
 
-      Promise.all(imagePromiseList)
-        .then(imageList => res.send(imageList.filter(image => image)));
+      Image.findByUser(req.params.userId, (err, imageList) => {
+        let imagePromiseList;
+        if (err) return next(err);
+        imagePromiseList = imageList.map(image => {
+          return imageStore.getImageUrl(image.id, image.type)
+            .then(url => {
+              if (!url)
+                return false;
+              return {id: image.id, url: url, title: image.title, description: image.description};
+            });
+        });
+
+        Promise.all(imagePromiseList)
+          .then(imageList => res.send(imageList.filter(image => image)));
+      });
     });
     // });
   });

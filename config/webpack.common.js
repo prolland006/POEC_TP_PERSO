@@ -14,7 +14,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin'); 
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
 /*
  * Webpack Constants
@@ -43,7 +43,7 @@ module.exports = function(options) {
     metadata: METADATA,
 
     /*
-     * Cache generated commonModuleList and chunks to improve performance for multiple incremental builds.
+     * Cache generated childCommonModuleList and chunks to improve performance for multiple incremental builds.
      * This is enabled by default in watch mode.
      * You can pass false to disable it.
      *
@@ -66,14 +66,14 @@ module.exports = function(options) {
     },
 
     /*
-     * Options affecting the resolving of commonModuleList.
+     * Options affecting the resolving of childCommonModuleList.
      *
      * See: http://webpack.github.io/docs/configuration.html#resolve
      */
     resolve: {
 
       /*
-       * An array of extensions that should be used to resolve commonModuleList.
+       * An array of extensions that should be used to resolve childCommonModuleList.
        *
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
@@ -85,7 +85,7 @@ module.exports = function(options) {
     },
 
     /*
-     * Options affecting the normal commonModuleList.
+     * Options affecting the normal childCommonModuleList.
      *
      * See: http://webpack.github.io/docs/configuration.html#module
      */
@@ -156,6 +156,10 @@ module.exports = function(options) {
           test: /\.css$/,
           loaders: ['to-string-loader', 'css-loader']
         },
+        {
+          test: /\.scss$/,
+          loaders: ['to-string-loader', 'css-loader', 'sass-loader']
+        },
 
         /* Raw loader support for *.html
          * Returns file content as string
@@ -211,7 +215,7 @@ module.exports = function(options) {
       /*
        * Plugin: CommonsChunkPlugin
        * Description: Shares common code between the pages.
-       * It identifies common commonModuleList and put them into a commons chunk.
+       * It identifies common childCommonModuleList and put them into a commons chunk.
        *
        * See: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
        * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
@@ -223,7 +227,7 @@ module.exports = function(options) {
       /**
        * Plugin: ContextReplacementPlugin
        * Description: Provides context to Angular's use of System.import
-       * 
+       *
        * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
        * See: https://github.com/angular/angular/issues/11580
        */

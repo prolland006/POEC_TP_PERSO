@@ -1,0 +1,15 @@
+button.submit_signup{
+  margin-top: 15px;
+}
+
+form.form_signup{
+  margin-top: 50px;
+}
+
+form{
+  text-align: center;
+}
+
+form h3{
+  color: #9e9e9e;
+}

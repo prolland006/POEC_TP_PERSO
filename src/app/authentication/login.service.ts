@@ -1,5 +1,6 @@
 import { Http, Headers } from '@angular/http';
-import {Injectable, Input, EventEmitter, Output} from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class LoginService {
@@ -7,7 +8,7 @@ export class LoginService {
   // isLoggedIn: boolean = false;
   @Output() setLoginStatus: EventEmitter<any> = new EventEmitter();
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private tokenService: TokenService) {}
 
   login( login: string, password: string ): Promise<any> {
 
@@ -20,12 +21,11 @@ export class LoginService {
       // status: 200, ok: true, statusText: null, headers: null, type: null, url: null}
       .then(response => response.json())
       .then((data: any) => {
-        let token = data && data.token;
 
-        if (token) {
+        if (data && data.token) {
           // store username and token in local storage to keep user logged in
-          window.localStorage.setItem( 'TOKEN', data.token );
-          window.localStorage.setItem( 'USER_ID', data.userId );
+          this.tokenService.setToken(data.token);
+          this.tokenService.setUserId(data.userId);
           // this.isLoggedIn = true;
           this.setLoginStatus.emit(true);
           return true;

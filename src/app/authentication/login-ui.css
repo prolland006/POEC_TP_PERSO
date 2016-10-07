@@ -1,1 +1,15 @@
-/*styles for home content only*/
+button.submit_login{
+  margin-top: 15px;
+}
+
+form.form_login{
+  margin-top: 50px;
+}
+
+form{
+  text-align: center;
+}
+
+form h3{
+  color: #9e9e9e;
+}
