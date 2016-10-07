@@ -65,11 +65,10 @@ userSchema.statics.checkExistingUser = function (login, callback) {
     if (err) {
       callback(err, false);
     }
-    if (user) {   // user is in DB
-      return callback(null, user);
+    if (user) {
+      return callback(null, user);  // user does exist in DB
     }
-
-    return callback(null, null);
+    return callback(null, null);    // user does not exist in DB
   });
 };
 
@@ -81,10 +80,9 @@ userSchema.statics.insertUser = function (credentials, callback) {
     if (err) {
       return callback(err, null);
     }
-    return callback(null, user);
+    return callback(null, user[0]);   // user is an array of one element
   })
 };
-
 
 
 mongoose.model('User', userSchema);

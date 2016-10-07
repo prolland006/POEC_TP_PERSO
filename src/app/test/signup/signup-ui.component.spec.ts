@@ -103,8 +103,4 @@ describe('SignupUI', () => {
     }))
   );
 
-
-  xit('Should reset signup page if signup fails', () => {
-    // TODO
-  });
 });

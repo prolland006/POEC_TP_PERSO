@@ -46,10 +46,61 @@ describe('User controller', () => {
             done();
 
         });
-
     });
-
   });
 
+  describe('signup', () => {
+
+    let userCheckExistingUserBackup;
+    let userInsertUserBackup;
+
+    beforeEach((done) => {
+      userCheckExistingUserBackup = User.checkExistingUser;
+      userInsertUserBackup        = User.insertUser;
+
+      User.remove({}, function (err) {
+        if (err) {
+          throw err
+        }
+        done();
+      });
+    });
+
+    afterEach(() => {
+      User.checkExistingUser = userCheckExistingUserBackup;
+      User.insertUser        = userInsertUserBackup;
+    });
+
+    it('should return status 201', (done) => {
+
+      // Mock DB such that the user doesn't exist
+      User.checkExistingUser = jasmine.createSpy('checkExistingUser').andCallFake((login, callback) => {
+        callback(null, null);
+      });
+      // Mock DB such that the user is inserted successfully
+      User.insertUser = jasmine.createSpy('insertUser').andCallFake((credential, callback) => {
+        callback(null, {login: "foo", password: "bar"});
+      });
+
+      request(app)
+        .post('/signup')
+        .send({login: 'foo', password: 'bar'})
+        .expect(201)
+        .end(done);
+    });
+
+    it('should return status 403    ', (done) => {
+      // Mock DB such that the user does exist
+      User.checkExistingUser = jasmine.createSpy('checkExistingUser').andCallFake((credential, callback) => {
+        callback(null,   {login: "foo", password: "bar"});
+      });
+
+      request(app)
+        .post('/signup')
+        .send({login: 'foo', password: 'bar'})
+        .expect(403)
+        .end(done);
+    });
+  });
 
 });

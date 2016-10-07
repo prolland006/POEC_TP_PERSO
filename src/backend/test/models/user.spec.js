@@ -105,6 +105,70 @@ describe('User model', () => {
     });
   });
 
+  describe('checkExistingUser', () => {
+
+    beforeEach((done) => {
+      User.remove({}, function (err) {
+        if (err) {
+          throw err
+        }
+        done();
+      });
+    });
+
+    it('should return user if the user exists', (done) => {
+      let password = crypto.createHash('sha256').update('yoloswag').digest('base64');
+      User.insertMany([
+        {login: 'foo@bar.com', password: password}
+      ], function (err, docs) {
+        expect(err).toBeNull();
+        User.checkExistingUser('foo@bar.com', (err, user) => {
+          expect(err).toBeNull();
+          expect(user.login).toEqual('foo@bar.com');
+          expect(user.password).toEqual(password);
+          done();
+        });
+      });
+    });
+
+    it('should return null if the user does not exist', (done) => {
+      let password = crypto.createHash('sha256').update('yoloswag').digest('base64');
+      User.insertMany([
+        {login: 'foo@bar.com', password: password}
+      ], function (err, docs) {
+        expect(err).toBeNull();
+        User.checkExistingUser('toto@bar.com', (err, user) => {
+          expect(err).toBeNull();
+          expect(user).toEqual(null);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('insertUser', () => {
+
+    beforeEach((done) => {
+      User.remove({}, function (err) {
+        if (err) {
+          throw err
+        }
+        done();
+      });
+    });
+
+    it('should return user if insertion is successful', (done) => {
+      let password = crypto.createHash('sha256').update('yoloswag').digest('base64');
+      User.insertUser(
+        {login: 'foo@bar.com', password: 'yoloswag'}
+      , function (err, user) {
+        expect(err).toBeNull();
+        expect(user[0].login).toEqual('foo@bar.com');
+        expect(user[0].password).toEqual(password);
+        done();
+      });
+    });
+  });
 
 });
 
