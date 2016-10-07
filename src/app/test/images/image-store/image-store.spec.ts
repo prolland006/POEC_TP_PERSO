@@ -26,8 +26,7 @@ describe('ImageStore', () => {
   }));
 
   it('should return image list Observable',
-    fakeAsync(inject([ImageStore, MockBackend],
-      (imageStore, mockBackend) => {
+      fakeAsync(inject([ImageStore, MockBackend], (imageStore, mockBackend) => {
 
     let imageList;
 

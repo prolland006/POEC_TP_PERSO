@@ -23,15 +23,15 @@ describe('ImageListComponent', () => {
 
   }));
 
-  it('should display image list', fakeAsync(inject([ActivatedRoute, ImageStore],
-      (activatedRoute, imageStore) => {
+  it('should display image list',
+      fakeAsync(inject([ActivatedRoute, ImageStore], (activatedRoute, imageStore) => {
 
     let element;
     let fixture;
 
     spyOn(imageStore, 'getImagesFromUser').and.returnValue(Observable.from([[
-      {url: '/images/111111.jpg'},
-      {url: '/images/222222.jpg'}
+      {url: '/upload/111111.jpg'},
+      {url: '/upload/222222.jpg'}
     ]]));
 
     activatedRoute.params = Observable.from([{
@@ -47,9 +47,8 @@ describe('ImageListComponent', () => {
     element = fixture.debugElement.nativeElement;
 
     expect(element.querySelectorAll('img').length).toEqual(2);
-    expect(element.querySelectorAll('img')[0].getAttribute('src')).toEqual('/images/111111.jpg');
-    expect(element.querySelectorAll('img')[1].getAttribute('src')).toEqual('/images/222222.jpg');
-
+    expect(element.querySelectorAll('img')[0].getAttribute('src')).toEqual('/upload/111111.jpg');
+    expect(element.querySelectorAll('img')[1].getAttribute('src')).toEqual('/upload/222222.jpg');
   })));
 
 });

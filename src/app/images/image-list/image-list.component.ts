@@ -14,12 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ImageListComponent implements OnInit {
 
+  imageList;
+
   constructor (
     private imageStore: ImageStore,
     private route: ActivatedRoute,
   ) { }
-
-  imageList;
 
   ngOnInit() {
     this.route.params.subscribe(params => {

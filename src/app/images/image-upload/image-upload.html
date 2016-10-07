@@ -9,7 +9,8 @@
       <img class="image_preview" [src]="imageSrc" height="200" alt="Image preview ...">
       <br>
       <!--select file throught button -->
-      <input type="file" (change)="handleInputChange($event)" name="file" accept="image/*">
+      <input type="file" (change)="handleInputChange($event)" name="file" accept="image/*"><br>
+      <span class="tp-message">{{ message }}</span>
 
     </form>
 </div>

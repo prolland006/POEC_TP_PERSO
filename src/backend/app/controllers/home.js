@@ -1,10 +1,9 @@
 const express = require('express');
-const router = express.Router();
 
-module.exports = function (app) {
-  app.use('/home', router);
-};
+module.exports.defineRoutes = function (router) {
 
-router.get('/', function (req, res, next) {
+  router.get('/', function (req, res, next) {
     res.render('index');
-});
+  });
+
+};

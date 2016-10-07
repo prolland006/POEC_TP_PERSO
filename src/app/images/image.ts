@@ -1,7 +1,3 @@
-/**
- * Created by Administrateur on 28/09/2016.
- */
-
 export class Image {
   id: string;
   url: string;
@@ -10,12 +6,12 @@ export class Image {
   imageData: string;    // image data as "data:image/jpeg;base64,/9j/4AAQSkZ ..."
 
   constructor({id, url, title, description, imageData}: {
-    id?: string, url?: string, title?: string, description?: string, imageData?: string}) {
+    id?: string, url?: string, title?: string, description?: string, imageData?: string
+  }) {
     this.id = id;
     this.url = url;
     this.title = title;
     this.description = description;
     this.imageData = imageData;
   }
-
 }
