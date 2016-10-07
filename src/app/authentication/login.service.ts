@@ -1,31 +1,33 @@
 import { Http, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
+import {Injectable, Input, EventEmitter, Output} from '@angular/core';
 
 @Injectable()
 export class LoginService {
 
+  // isLoggedIn: boolean = false;
+  @Output() setLoginStatus: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private http: Http) {}
 
   login( login: string, password: string ): Promise<any> {
-    // this.isLoggedin = false;
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     return this.http.post('/login', JSON.stringify({ login, password }), { headers })
       .toPromise() // Promise<Response>
-    // Response{_body: '{"userId":42,"token":"fake-token"}',
+      // Response{_body: '{"userId":42,"token":"fake-token"}',
       // status: 200, ok: true, statusText: null, headers: null, type: null, url: null}
       .then(response => response.json())
       .then((data: any) => {
         let token = data && data.token;
 
         if (token) {
-
           // store username and token in local storage to keep user logged in
           window.localStorage.setItem( 'TOKEN', data.token );
           window.localStorage.setItem( 'USER_ID', data.userId );
-          // this.isLoggedin = true;
+          // this.isLoggedIn = true;
+          this.setLoginStatus.emit(true);
           return true;
         } else {
           return false;
@@ -33,6 +35,6 @@ export class LoginService {
 
       }).catch(error => console.error('login error ', error) );
 
-}
+  }
 
 }
