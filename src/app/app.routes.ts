@@ -5,7 +5,7 @@ import {LoginUIComponent} from './authentication/login-ui.component';
 import {SignupUIComponent} from './signup/signup-ui.component';
 
 export const ROUTES: Routes = [
-  {path: '', component: ImageListComponent},
+  {path: '', component: LoginUIComponent},
   {path: 'login', component: LoginUIComponent},
   {path: 'signup', component: SignupUIComponent},
   {path: 'images/:userId', component: ImageListComponent},

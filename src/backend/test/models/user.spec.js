@@ -54,9 +54,10 @@ describe('User model', () => {
       });
     });
 
-    it('should return error if user doesn\'t exist', (done) => {
+    it('should return null if user doesn\'t exist', (done) => {
       User.getToken({login: 'foo@bar.com', password: 'yoloswag'}, (err, token) => {
-        expect(err).toBeTruthy();
+        expect(err).toBeNull();
+        expect(token).toBeNull();
         done();
       });
     });
@@ -163,8 +164,8 @@ describe('User model', () => {
         {login: 'foo@bar.com', password: 'yoloswag'}
       , function (err, user) {
         expect(err).toBeNull();
-        expect(user[0].login).toEqual('foo@bar.com');
-        expect(user[0].password).toEqual(password);
+        expect(user.login).toEqual('foo@bar.com');
+        expect(user.password).toEqual(password);
         done();
       });
     });

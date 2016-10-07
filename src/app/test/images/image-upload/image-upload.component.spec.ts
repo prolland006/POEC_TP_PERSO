@@ -3,7 +3,7 @@ import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { ImageModule } from '../../../images/image.module';
 import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 
 describe('Image Upload', () => {
@@ -29,6 +29,12 @@ describe('Image Upload', () => {
         {
           provide: ActivatedRoute,
           useValue: { }
+        },
+        {
+          provide: Router,
+          useValue: {
+            navigate: jasmine.createSpy('navigate')
+          }
         }
       ]
     }).compileComponents();
@@ -59,7 +65,7 @@ describe('Image Upload', () => {
   })));
 
   it('should upload image',
-    fakeAsync(inject([MockBackend, ActivatedRoute], (backend, activatedRoute) => {
+    fakeAsync(inject([MockBackend, ActivatedRoute, Router], (backend, activatedRoute, router) => {
 
     let event;
     let file = {
@@ -74,6 +80,7 @@ describe('Image Upload', () => {
     activatedRoute.params = Observable.from([{
       userId: '42'
     }]);
+
 
     connectionCountSpy = jasmine.createSpy('connectionCount');
 
@@ -94,7 +101,7 @@ describe('Image Upload', () => {
       });
     });
 
-    /* Mock backend. */
+      /* Mock backend. */
     backend.connections.subscribe(connection => {
 
       connectionCountSpy();
@@ -117,6 +124,12 @@ describe('Image Upload', () => {
     fixture = TestBed.createComponent(ImageUploadComponent);
 
     fixture.detectChanges();
+
+    if (!window.localStorage.getItem('TOKEN')) {
+      expect((<jasmine.Spy>router.navigate).calls.count()).toEqual(1);
+      return;
+    }
+
     event = {
       target: {
         files: [file]

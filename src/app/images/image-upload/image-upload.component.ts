@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import {Component, OnInit} from '@angular/core';
 import { Image } from '../image';
 import 'rxjs/add/operator/toPromise';
 import { Headers, RequestOptions } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import { AuthenticatedHttp } from '../../common/authenticated-http.service'
 
 @Component({
   // The selector is what angular internally uses
@@ -17,10 +17,9 @@ import { ActivatedRoute } from '@angular/router';
   // Our list of styles in our component. We may add more to compose many styles together
   // styleUrls: [ './upload-api.style.css' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  template: require('./image-upload.html')
+  template: <string>require('./image-upload.html')
 })
-
-export class ImageUploadComponent {
+export class ImageUploadComponent implements OnInit {
 
 
   // Way 1: take filename and path from the form
@@ -36,8 +35,9 @@ export class ImageUploadComponent {
   imageSrc: string = '';
   imageName: string = '';
   userId: string;
+  message: string;
 
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private http: AuthenticatedHttp, private route: ActivatedRoute, private router: Router) {
   }
 
   handleInputChange(event) {
@@ -73,15 +73,17 @@ export class ImageUploadComponent {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-
     return this._userId()
       .then((userId) =>
         this.http.post(`/users/${userId}/images`, JSON.stringify(image), options)
           .toPromise()
-      );
-//       .then((response) => new Image(response.json()))
-//       .then((response) => { console.log('uploadImage', response); } )
- //      .catch(error => console.error('uploadImage error ', error)); // Promise<Image>
+      )
+      .catch(error => {
+        if (error.status=='401') { //unauthorized
+          //redirection
+          this.router.navigate(['login']);
+        }
+      }); // Promise<Image>
   };
 
   private _userId() {
@@ -92,5 +94,13 @@ export class ImageUploadComponent {
       .toPromise();
 
   }
+
+  ngOnInit() {
+    if (!window.localStorage.getItem('TOKEN')) {
+    //redirection
+      this.router.navigate(['login']);
+    }
+  }
+
 }
 

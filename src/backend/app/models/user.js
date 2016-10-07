@@ -26,7 +26,7 @@ userSchema.statics.getToken = function (credentials, callback) {
       return callback(err, null);
     }
     if (!user) {
-      return callback(new Error(), null);
+      return callback(null, null);
     }
     if (user.token) {
       return callback(null, {userId: user.id, token: user.token});

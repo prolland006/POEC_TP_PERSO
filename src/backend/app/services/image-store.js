@@ -25,14 +25,13 @@ class ImageStore {
         albums: []
       });
 
-      let that = this;
-      img.save(function (err, result) {
+      img.save((err) => {
 
         if (err) {
-          return next(err);
+          reject(err);
         }
 
-        that.saveOnDisk(img._id, imageObject.imageData)
+        this.saveOnDisk(img._id, imageObject.imageData)
           .then(data => resolve(img._id))
           .catch(err => reject(err));
       });
@@ -68,7 +67,7 @@ class ImageStore {
     let imageBuffer = this.decodeBase64Image(imgData);
 
     return new Promise(function (resolve, reject) {
-      fs.stat(path.join(__dirname, UPLOAD_DIRECTORY), (err, stat) => {
+      fs.stat(path.join(__dirname, UPLOAD_DIRECTORY), (err) => {
         if (err) {
           fs.mkdir(path.join(__dirname, UPLOAD_DIRECTORY), (err) => {
             if (err) {

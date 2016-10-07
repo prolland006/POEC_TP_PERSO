@@ -1,3 +1,4 @@
+///<reference path="../../node_modules/@types/node/index.d.ts"/>
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -11,7 +12,6 @@ import { AppComponent } from './app.component';
 import { ImageModule } from './images/image.module';
 import { CommonHelper } from './common-helper';
 import { LoginModule } from './authentication/login.module';
-import {LoginUIComponent} from "./authentication/login-ui.component";
 import { SignupModule } from './signup/signup.module';
 
 /**
