@@ -58,7 +58,7 @@ span.mdl-layout-title{
 }
 
 a.mdl-navigation__link:hover{
-color: #33D3FF;
+  color: #33D3FF;
 }
 
 
@@ -67,7 +67,9 @@ ul.mdl-mega-footer__link-list li:hover{
   color: white;
 }
 
-
+.mdl-layout__header-row .mdl-navigation__link{
+  display:inline !important;
+}
 
 @media(max-width: 600px) {
   div.mdl-layout__header-row nav.mdl-navigation {
@@ -78,8 +80,8 @@ ul.mdl-mega-footer__link-list li:hover{
 
 
 @media(min-width: 600px) {
-div.mdl-layout__drawer-button{
-  display: none;
-}
-
+  div.mdl-layout__drawer-button{
+    display: none;
   }
+
+}
