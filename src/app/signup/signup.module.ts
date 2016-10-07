@@ -13,7 +13,7 @@ import { SignupUIComponent } from './signup-ui.component';
     SignupUIComponent
   ],
   imports: [
-    CommonHelper.commonModuleList()
+    CommonHelper.childCommonModuleList()
   ],
   providers: [
     SignupService

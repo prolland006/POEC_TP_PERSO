@@ -1,14 +1,14 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, ComponentMetadataType} from '@angular/core';
 import {LoginService} from "./authentication/login.service";
 
 /*
  * AppComponent Component
  * Top Level Component
  */
-@Component({
+@Component(<ComponentMetadataType>{
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styles: [

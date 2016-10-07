@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ComponentMetadataType} from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 
-@Component({
+@Component(<ComponentMetadataType>{
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
   // where, in this case, selector is the string 'home'

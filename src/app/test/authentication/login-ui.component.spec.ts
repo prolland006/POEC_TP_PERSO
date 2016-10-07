@@ -1,9 +1,9 @@
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from "@angular/forms";
 import { Router } from '@angular/router';
-import { LoginUIComponent } from '../login-ui.component';
-import { LoginService } from '../login.service';
-import { LoginModule } from '../login.module';
+import { LoginUIComponent } from '../../../app/authentication/login-ui.component';
+import { LoginService } from '../../../app/authentication/login.service';
+import { LoginModule } from '../../../app/authentication/login.module';
 
 const INVALID_LOGIN_MESSAGE = 'Your login password is invalid.';
 
