@@ -1,5 +1,5 @@
 import { Http } from '@angular/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   // redirection
   providers: [/*ROUTER_PROVIDERS*/]
 })
-export class LoginUIComponent {
+export class LoginUIComponent implements OnInit {
 
   static INVALID_LOGIN_MESSAGE = 'Your login password is invalid.';
   static LOGIN_ERROR_MESSAGE = 'Error during login process, see administrator.';
@@ -24,7 +24,11 @@ export class LoginUIComponent {
   login: string;
   password: string;
   loginMessage: string;
+  userId : string;
 
+  ngOnInit(): void {
+    this.userId = window.localStorage.getItem('USER_ID');
+  }
 
   constructor (private http: Http, private loginService: LoginService, private router: Router) {
       this.loginMessage = '';
@@ -32,12 +36,11 @@ export class LoginUIComponent {
 
   onLogin(login: string, password: string) {
 
-    console.log('onLogin');
-
       this.loginService.login(login, password)
         .then(
           response => {
             if (response) {
+              this.userId = window.localStorage.getItem('USER_ID');
               this.router.navigate(
                 [`images/${window.localStorage.getItem('USER_ID')}`]
               ); // redirection
