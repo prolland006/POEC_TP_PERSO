@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageStore } from '../image-store/image-store';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   // The selector is what angular internally uses
@@ -19,19 +19,31 @@ export class ImageListComponent implements OnInit {
   constructor (
     private imageStore: ImageStore,
     private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.getImages(params['userId']);
+    },
+    err => {
+      if (err.status=='401') { //unauthorized
+        //redirection
+        this.router.navigate(['login']);
+      }
     });
-    console.log('hello `ImageListComponent` component');
   }
 
   getImages(userId) {
     this.imageStore.getImagesFromUser(userId)
       .subscribe(imageList => {
         this.imageList = imageList;
+      },
+      err => {
+        if (err.status=='401') { //unauthorized
+          //redirection
+          this.router.navigate(['login']);
+        }
       });
   };
 
