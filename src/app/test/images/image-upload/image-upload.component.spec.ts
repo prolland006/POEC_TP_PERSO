@@ -2,11 +2,12 @@
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ImageUploadComponent } from '../../../images/image-upload/image-upload.component';
 import { ImageModule } from '../../../images/image.module';
+import { TokenService } from '../../../authentication/token.service';
 
 describe('Image Upload', () => {
 
@@ -67,7 +68,7 @@ describe('Image Upload', () => {
   })));
 
   it('should upload image',
-    fakeAsync(inject([MockBackend, ActivatedRoute, Router], (backend, activatedRoute, router) => {
+    fakeAsync(inject([MockBackend, ActivatedRoute, Router, TokenService], (backend, activatedRoute, router, tokenService) => {
 
     let event;
     let file = {
@@ -127,7 +128,7 @@ describe('Image Upload', () => {
 
     fixture.detectChanges();
 
-    if (!window.localStorage.getItem('TOKEN')) {
+    if (!tokenService.getUserId()) {
       expect((<jasmine.Spy>router.navigate).calls.count()).toEqual(1);
       return;
     }

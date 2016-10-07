@@ -1,8 +1,9 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component, ViewEncapsulation, OnInit, ComponentMetadataType} from '@angular/core';
-import {LoginService} from "./authentication/login.service";
+import { Component, ViewEncapsulation, OnInit, ComponentMetadataType } from '@angular/core';
+import { LoginService } from './authentication/login.service';
+import { TokenService } from './authentication/token.service';
 
 /*
  * AppComponent Component
@@ -97,16 +98,16 @@ export class AppComponent implements OnInit {
   // isLoggedIn : boolean;
   userId: string;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private tokenService: TokenService) {
   }
 
   ngOnInit() {
-    this.userId = window.localStorage.getItem('USER_ID');
+    this.userId = this.tokenService.getUserId();
     this.loginService.setLoginStatus.subscribe(isLoggedIn => this.loginEventHandler())
   }
 
   private loginEventHandler() {
-    this.userId = window.localStorage.getItem('USER_ID');
+    this.userId = this.tokenService.getUserId();
 
   }
 }

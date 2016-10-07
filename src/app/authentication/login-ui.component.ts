@@ -1,6 +1,7 @@
-import {Component, OnInit, ComponentMetadataType} from '@angular/core';
+import { Component, OnInit, ComponentMetadataType } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { TokenService } from './token.service';
 
 @Component(<ComponentMetadataType>{
   // The selector is what angular internally uses
@@ -22,13 +23,15 @@ export class LoginUIComponent implements OnInit {
   loginMessage: string;
   userId : string;
 
-  ngOnInit(): void {
-    this.userId = window.localStorage.getItem('USER_ID');
+  constructor (private loginService: LoginService, private router: Router, private tokenService: TokenService) {
+    this.loginMessage = '';
   }
 
-  constructor (private loginService: LoginService, private router: Router) {
-      this.loginMessage = '';
+  ngOnInit(): void {
+    this.userId = this.tokenService.getUserId();
   }
+
+
 
   onLogin(login: string, password: string) {
 
@@ -36,9 +39,9 @@ export class LoginUIComponent implements OnInit {
         .then(
           response => {
             if (response) {
-              this.userId = window.localStorage.getItem('USER_ID');
+              this.userId = this.tokenService.getUserId();
               this.router.navigate(
-                [`images/${window.localStorage.getItem('USER_ID')}`]
+                [`images/${this.tokenService.getUserId()}`]
               ); // redirection
             } else {
               this.loginMessage = LoginUIComponent.INVALID_LOGIN_MESSAGE;

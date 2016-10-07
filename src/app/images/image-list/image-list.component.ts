@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageStore } from '../image-store/image-store';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from '../../authentication/token.service';
 
 @Component({
   // The selector is what angular internally uses
@@ -19,11 +20,12 @@ export class ImageListComponent implements OnInit {
   constructor (
     private imageStore: ImageStore,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit() {
-    if (!window.localStorage.getItem('TOKEN')) {
+    if (!this.tokenService.getToken()) {
       this.router.navigate(['login']);
       return;
     }

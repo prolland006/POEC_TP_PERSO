@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { ImageModule } from './images/image.module';
 import { CommonHelper } from './common-helper';
 import { LoginModule } from './authentication/login.module';
-import {MaterialModule} from "@angular/material";
+import { MaterialModule } from "@angular/material";
 import { SignupModule } from './signup/signup.module';
 
 /**

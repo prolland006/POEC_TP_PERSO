@@ -4,6 +4,7 @@ import { ImageListComponent } from '../../../images/image-list/image-list.compon
 import {ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { ImageStore } from '../../../images/image-store/image-store';
+import { TokenService } from '../../../authentication/token.service';
 
 describe('ImageListComponent', () => {
 
@@ -31,7 +32,7 @@ describe('ImageListComponent', () => {
   }));
 
   it('should display image list',
-      fakeAsync(inject([ActivatedRoute, ImageStore, Router], (activatedRoute, imageStore, router) => {
+      fakeAsync(inject([ActivatedRoute, ImageStore, Router, TokenService], (activatedRoute, imageStore, router, tokenService) => {
 
     let element;
     let fixture;
@@ -53,7 +54,7 @@ describe('ImageListComponent', () => {
     /* Test. */
     element = fixture.debugElement.nativeElement;
 
-    if (!window.localStorage.getItem('TOKEN')) {
+    if (!tokenService.getToken()) {
       expect((<jasmine.Spy>router.navigate).calls.count()).toEqual(1);
     } else {
       expect(element.querySelectorAll('img').length).toEqual(2);
