@@ -32,7 +32,7 @@ export class SignupService {
 
         // console.log('Signup result ', response);
 
-        if(response.status === 200) {
+        if(response.status === 201) {
           return true;
         } else {
           return false;
