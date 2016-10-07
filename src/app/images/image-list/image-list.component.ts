@@ -23,6 +23,11 @@ export class ImageListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (!window.localStorage.getItem('TOKEN')) {
+      this.router.navigate(['login']);
+      return;
+    }
+
     this.route.params.subscribe(params => {
       this.getImages(params['userId']);
     },
